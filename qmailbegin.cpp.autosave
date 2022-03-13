@@ -37,7 +37,7 @@ QMailbegin::~QMailbegin()
 
 void QMailbegin::on_pushButton_2_clicked()
 {
-    SendMail s;
+    SendMail s(this->CurrentUser);
     s.exec();
 }
 
