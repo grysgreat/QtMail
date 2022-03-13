@@ -13,7 +13,6 @@ QMailbegin::QMailbegin(QWidget *parent) :
        // printf("WSAStartup failed: %d\n", iResult);
     }
 
-
     // 获取到所有存在的用户 并将其赋值给currentuser
     this->alluser  = User::getallUserfromConf(); 
     if(alluser.empty()){
@@ -26,6 +25,8 @@ QMailbegin::QMailbegin(QWidget *parent) :
         ui->comboBox->addItem(QString::fromStdString(user.email));
     }
 
+
+  //connect(&BindNewuser,&infrom::destroyed,this,SLOT(refreshuser()));
 
 }
 
@@ -73,14 +74,10 @@ void QMailbegin::on_pushButton_3_clicked()
 
 void QMailbegin::on_pushButton_clicked()
 {
-    infrom m;
-    m.exec();
-    ui->comboBox->clear();
-    this->alluser  = User::getallUserfromConf();
-    for(auto user:this->alluser){
-        ui->comboBox->addItem(QString::fromStdString(user.email));
-    }
-    cout<<"endd!!!!!";
+
+  //  connect(m,&infrom::destroyed,this,&QMailbegin::on_comboBox_activated);
+    BindNewuser.exec();
+    refreshuser();
 }
 
 void QMailbegin::on_comboBox_activated(const QString &arg1)
@@ -88,10 +85,41 @@ void QMailbegin::on_comboBox_activated(const QString &arg1)
 
 }
 
-void QMailbegin::on_comboBox_currentIndexChanged(const QString &arg1){}
+void QMailbegin::on_comboBox_currentIndexChanged(const QString &arg1){
+
+}
 
 void QMailbegin::on_comboBox_currentIndexChanged(int index)
 {
+if(index >= 0 && index < alluser.size()){
+     this->CurrentUser=this->alluser[index];
+}
 
-    this->CurrentUser=this->alluser[index];
+}
+
+
+void QMailbegin::refreshuser(){
+    ui->comboBox->clear();
+//    vector<User> tempall = User::getallUserfromConf();
+
+
+//     for(int i =0;i<(int)tempall.size();i++){
+//         bool isnew = true;
+//            for ( int j =0;j<(int)this->alluser.size();j++){
+//                if(tempall[i].email == this->alluser[j].email)
+//                    isnew = false;
+//            }
+//         if(isnew) this->alluser.push_back(tempall[i]);
+//     }
+
+this->alluser = User::getallUserfromConf();
+    for(auto user:this->alluser){
+        ui->comboBox->addItem(QString::fromStdString(user.email));
+    }
+    cout<<"endd!!!!!";
+}
+
+void QMailbegin::on_pushButton_5_clicked()
+{
+    refreshuser();
 }

@@ -58,7 +58,7 @@ public:
      * 获取全部已经注册过的用户
      * @return
      */
-    static vector<User>  getallUserfromConf();
+    static vector<User> getallUserfromConf();
 
 
     /**

@@ -6,16 +6,13 @@
 #include <QString>
 #include "QMessageBox"
 
-//qweqweqwew
-#include "qmailbegin.h"
-
 using namespace std;
-
-SendMail::SendMail(QWidget *parent) :
+SendMail::SendMail(User currentuser,QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SendMail)
 {
     ui->setupUi(this);
+    this->currentuser = currentuser;
     WSADATA wsaData;
     int iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
     if (iResult != 0) {
@@ -49,7 +46,8 @@ void SendMail::on_pushButton_2_clicked()
     cout<<PATH<<endl;
     FILE* fp = fopen(PATH.c_str(), "wb");
 
-    User myuser = User::getallUserfromConf()[0];
+    //User myuser = User::getallUserfromConf()[0];
+
 
 
     fwrite(&messagetext[0], messagetext.size() , 1, fp );
@@ -64,8 +62,7 @@ void SendMail::on_pushButton_2_clicked()
         argv[2]=&to.toStdString()[0];
         argv[3]="message";
         argv[4]="utf-8";
-
-        myuser.SendEmail("Gmail",argv[2],argv[3],"",true);
+        this->currentuser.SendEmail("Gmail",argv[2],argv[3],"",true);
         QMessageBox::information(this, tr("success"),  tr("发送成功"),QMessageBox::Save | QMessageBox::Discard,  QMessageBox::Discard);
     } else {
         int argc = 6;
@@ -78,8 +75,7 @@ void SendMail::on_pushButton_2_clicked()
         argv[4]="utf-8";
         argv[5]=&ui->textBrowser->toPlainText().toStdString()[0];
 
-
-        myuser.SendEmail("Gmail",argv[2],argv[3],argv[5],true);
+        this->currentuser.SendEmail("Gmail",argv[2],argv[3],argv[5],true);
         QMessageBox::information(this, tr("success"),  tr("发送成功"),QMessageBox::Save | QMessageBox::Discard,  QMessageBox::Discard);
     }
 }

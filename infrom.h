@@ -15,8 +15,14 @@ public:
     explicit infrom(QWidget *parent = nullptr);
     ~infrom();
 
+public slots:
+    void iscloseed();
+
+
 private slots:
     void on_wqeww_clicked();
+    void on_infrom_destroyed();
+
 
 private:
     Ui::infrom *ui;

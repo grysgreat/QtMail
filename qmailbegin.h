@@ -32,6 +32,7 @@ public:
     //当前用户
     User CurrentUser;
 
+    infrom BindNewuser;
 
 
 private slots:
@@ -48,6 +49,9 @@ private slots:
     void on_comboBox_currentIndexChanged(const QString &arg1);
 
     void on_comboBox_currentIndexChanged(int index);
+
+    void refreshuser();
+    void on_pushButton_5_clicked();
 
 private:
     Ui::QMailbegin *ui;

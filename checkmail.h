@@ -31,6 +31,7 @@ public:
     ~checkMail();
     string s;
 
+
 private slots:
     void on_pushButton_clicked();
 

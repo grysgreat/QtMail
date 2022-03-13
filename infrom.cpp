@@ -19,6 +19,7 @@ infrom::infrom(QWidget *parent) :
     if (iResult != 0) {
        // printf("WSAStartup failed: %d\n", iResult);
     }
+
 }
 
 infrom::~infrom()
@@ -41,4 +42,13 @@ void infrom::on_wqeww_clicked()
     } else {
         QMessageBox::critical(this, tr("error"),  tr("生成个人信息失败"),QMessageBox::Save | QMessageBox::Discard,  QMessageBox::Discard);
     }
+}
+
+void infrom::on_infrom_destroyed()
+{
+    emit iscloseed();
+}
+
+void infrom::iscloseed(){
+
 }
