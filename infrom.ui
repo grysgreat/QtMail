@@ -14,7 +14,8 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">border-image: url(:/新建文件夹/bkd.png);</string>
+   <string notr="true">border-image: url(:/pics/邮箱图标.png);
+border-image: url(:/pics/bkd.png);</string>
   </property>
   <widget class="QTextEdit" name="textEdit">
    <property name="geometry">
@@ -26,7 +27,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/新建文件夹/空白3.jpg);</string>
+    <string notr="true">border-image: url(:/pics/空白3.jpg);</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -52,7 +53,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/新建文件夹/空白3.jpg);</string>
+    <string notr="true">border-image: url(:/pics/空白3.jpg);</string>
    </property>
   </widget>
   <widget class="QPushButton" name="wqeww">
@@ -65,7 +66,8 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/新建文件夹/确认.jpg);</string>
+    <string notr="true">border-image: url(:/新建文件夹/确认.jpg);
+border-image: url(:/pics/确认.jpg);</string>
    </property>
    <property name="text">
     <string/>
