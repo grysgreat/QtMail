@@ -6,13 +6,14 @@
 #include <QString>
 #include "QMessageBox"
 
-using namespace std;
 
-SendMail::SendMail(QWidget *parent) :
+using namespace std;
+SendMail::SendMail(User currentuser,QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SendMail)
 {
     ui->setupUi(this);
+    this->currentuser = currentuser;
     WSADATA wsaData;
     int iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
     if (iResult != 0) {
@@ -46,40 +47,50 @@ void SendMail::on_pushButton_2_clicked()
     cout<<PATH<<endl;
     FILE* fp = fopen(PATH.c_str(), "wb");
 
-    User myuser = User::getallUserfromConf()[0];
+    //User myuser = User::getallUserfromConf()[0];
 
 
 
     fwrite(&messagetext[0], messagetext.size() , 1, fp );
     fclose(fp);
 
-    if(ui->textBrowser->toPlainText().size()==0){
-        int argc = 5;
-        char* argv[10];
-        argv[0]="myemail ";
-        argv[1]="send";
-        //argv[2]="771582678@qq.com";
-        argv[2]=&to.toStdString()[0];
-        argv[3]="message";
-        argv[4]="utf-8";
 
-        myuser.SendEmail("Gmail",argv[2],argv[3],"",true);
-        QMessageBox::information(this, tr("success"),  tr("发送成功"),QMessageBox::Save | QMessageBox::Discard,  QMessageBox::Discard);
-    } else {
-        int argc = 6;
-        char* argv[10];
-        argv[0]="myemail ";
-        argv[1]="send";
-        //argv[2]="771582678@qq.com";
-        argv[2]=&to.toStdString()[0];
-        argv[3]="message";
-        argv[4]="utf-8";
-        argv[5]=&ui->textBrowser->toPlainText().toStdString()[0];
+    string alluserMail = to.toStdString();
 
+    //所有用户email数组
+    vector<string> res;
+    SplitString(res, alluserMail, ';');
 
-        myuser.SendEmail("Gmail",argv[2],argv[3],argv[5],true);
-        QMessageBox::information(this, tr("success"),  tr("发送成功"),QMessageBox::Save | QMessageBox::Discard,  QMessageBox::Discard);
+    string subject = ui->textEdit_3->toPlainText().toStdString();
+
+    for(string s: res){
+        if(ui->textBrowser->toPlainText().size()==0){
+            int argc = 5;
+            char* argv[10];
+            argv[0]="myemail ";
+            argv[1]="send";
+
+            argv[2]=&s[0];
+            argv[3]="message";
+            argv[4]="utf-8";
+            this->currentuser.SendEmail(&subject[0],argv[2],argv[3],"",true);
+
+        } else {
+            int argc = 6;
+            char* argv[10];
+            argv[0]="myemail ";
+            argv[1]="send";
+            argv[2]=&s[0];
+            argv[3]="message";
+            argv[4]="utf-8";
+            argv[5]=&ui->textBrowser->toPlainText().toStdString()[0];
+
+            this->currentuser.SendEmail(&subject[0],argv[2],argv[3],argv[5],true);
+
+        }
     }
+    QMessageBox::information(this, tr("success"),  tr("发送成功"),QMessageBox::Save | QMessageBox::Discard,  QMessageBox::Discard);
+
 }
 
 

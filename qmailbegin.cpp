@@ -1,6 +1,6 @@
 #include "qmailbegin.h"
 #include "ui_qmailbegin.h"
-
+#include "QMovie"
 QMailbegin::QMailbegin(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::QMailbegin)
@@ -25,6 +25,9 @@ QMailbegin::QMailbegin(QWidget *parent) :
         ui->comboBox->addItem(QString::fromStdString(user.email));
     }
 
+    QMovie *movie = new QMovie(":/pics/loading.gif");
+    ui->label->setMovie(movie);
+    movie->start();
 
   //connect(&BindNewuser,&infrom::destroyed,this,SLOT(refreshuser()));
 
@@ -37,7 +40,7 @@ QMailbegin::~QMailbegin()
 
 void QMailbegin::on_pushButton_2_clicked()
 {
-    SendMail s;
+    SendMail s(this->CurrentUser);
     s.exec();
 }
 
@@ -112,7 +115,7 @@ void QMailbegin::refreshuser(){
 //         if(isnew) this->alluser.push_back(tempall[i]);
 //     }
 
-this->alluser = User::getallUserfromConf();
+    this->alluser = User::getallUserfromConf();
     for(auto user:this->alluser){
         ui->comboBox->addItem(QString::fromStdString(user.email));
     }
