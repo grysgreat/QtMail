@@ -6,6 +6,13 @@ QMailbegin::QMailbegin(QWidget *parent) :
     ui(new Ui::QMailbegin)
 {
     ui->setupUi(this);
+    ui->label->setVisible(false);
+    QMovie * move = new QMovie(":/loading.gif");
+        ui->label->setMovie(move);
+        ui->label->setFixedSize(100,100);
+        ui->label->setScaledContents(true);
+        //ui->label_gif->adjustSize();//在这里没有效果
+        move->start(); //没有这一行，就不会显示任何内容
     //初始化Socket
     WSADATA wsaData;
     int iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -51,26 +58,28 @@ void QMailbegin::on_pushButton_4_clicked()
 }
 
 
-
 void QMailbegin::on_pushButton_3_clicked()
 {
-    cout<<"11";
-    this->CurrentUser.getallEmailinfo();//初始化用户邮件信息 即维护 邮件的vector与map
-    cout<<"22";
-    int i=1;
-    //该过程需要耗时较长 想办法进行多线程的转换
-    for(auto a: this->CurrentUser.allUIDLs){
-      //  cout<<a<<endl;
-        //cout<<this->CurrentUser.uidlEmial.size();
-        cout<<"----------";
-        Email e =this->CurrentUser.uidlEmial[a];
-        cout<<e.UIDL<<endl;
-        string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
+ui->label->setVisible(true);
+ui->pushButton_3->setDisabled(true);
 
-        ui->listWidget->addItem(QString::fromStdString(s));
-        i++;
+
+
+
+    QFuture<void> future = QtConcurrent::run(this,&QMailbegin::initonesinfo);
+    while(!future.isFinished())
+           {
+               QApplication::processEvents(QEventLoop::AllEvents, 100);
+               //QMessageBox::information(this, tr("success"),  tr("发送成功"),QMessageBox::Save | QMessageBox::Discard,  QMessageBox::Discard);
+
+           }
+    if(future.isFinished()){
+       // QMessageBox::information(this, tr("success"),  tr("发送成功"),QMessageBox::Save | QMessageBox::Discard,  QMessageBox::Discard);
+        ui->label->setVisible(false);
+        ui->pushButton_3->setEnabled(true);
+
+        Toast::instance().show(1, "load the top of all eamils finished!");
     }
-
 
 
 }
@@ -125,4 +134,24 @@ void QMailbegin::refreshuser(){
 void QMailbegin::on_pushButton_5_clicked()
 {
     refreshuser();
+}
+
+void QMailbegin::initonesinfo(){
+    cout<<"11";
+    this->CurrentUser.getallEmailinfo();//初始化用户邮件信息 即维护 邮件的vector与map
+    cout<<"22";
+    int i=1;
+    //该过程需要耗时较长 想办法进行多线程的转换
+    for(auto a: this->CurrentUser.allUIDLs){
+      //  cout<<a<<endl;
+        //cout<<this->CurrentUser.uidlEmial.size();
+        cout<<"----------";
+        Email e =this->CurrentUser.uidlEmial[a];
+        cout<<e.UIDL<<endl;
+        string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
+
+        ui->listWidget->addItem(QString::fromStdString(s));
+        i++;
+    }
+
 }

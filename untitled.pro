@@ -3,7 +3,7 @@
 # Project created by QtCreator 2022-03-06T14:58:30
 #
 #-------------------------------------------------
-QT       += core gui axcontainer
+QT       += core gui axcontainer concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -29,6 +29,7 @@ SOURCES += \
     infrom.cpp \
     checkmail.cpp \
     sendmail.cpp\
+    toast.cpp \
  util.cpp\
  Email.cpp\
 Exception.cpp\
@@ -43,6 +44,7 @@ HEADERS += \
     infrom.h \
     checkmail.h \
     sendmail.h\
+    toast.h \
     util.h\
         Email.h\
         Exception.h\
@@ -70,6 +72,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    resource.qrc
+    resource.qrc\
+    loading.gif
 
 DISTFILES +=
+

@@ -6,7 +6,6 @@
 #include <QString>
 #include "QMessageBox"
 
-
 using namespace std;
 SendMail::SendMail(User currentuser,QWidget *parent) :
     QDialog(parent),
