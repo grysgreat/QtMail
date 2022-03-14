@@ -17,7 +17,6 @@ public:
     explicit SendMail(User currentuser,QWidget *parent = nullptr);
     ~SendMail();
     User currentuser;
-
 private slots:
     void on_pushButton_clicked();
 

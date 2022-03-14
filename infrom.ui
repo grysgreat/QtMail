@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">border-image: url(:/新建文件夹/bkd.png);</string>
+  </property>
   <widget class="QTextEdit" name="textEdit">
    <property name="geometry">
     <rect>
@@ -22,14 +25,17 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/新建文件夹/空白3.jpg);</string>
+   </property>
   </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>70</y>
+     <x>20</x>
+     <y>60</y>
      <width>54</width>
-     <height>12</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="text">
@@ -45,27 +51,33 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/新建文件夹/空白3.jpg);</string>
+   </property>
   </widget>
   <widget class="QPushButton" name="wqeww">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>110</y>
+     <x>20</x>
+     <y>120</y>
      <width>91</width>
-     <height>31</height>
+     <height>41</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/新建文件夹/确认.jpg);</string>
+   </property>
    <property name="text">
-    <string>确认</string>
+    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>20</x>
      <y>30</y>
      <width>54</width>
-     <height>12</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="text">
