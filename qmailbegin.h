@@ -15,6 +15,11 @@
 #include "sendmail.h"
 # include<vector>
 #include "User.h"
+#include <QFuture>
+#include <QtConcurrent/QtConcurrent>
+#include<QMovie>
+#include "toast.h"
+
 
 namespace Ui {
 class QMailbegin;
@@ -52,7 +57,7 @@ private slots:
 
     void refreshuser();
     void on_pushButton_5_clicked();
-
+   void initonesinfo();
 private:
     Ui::QMailbegin *ui;
 };

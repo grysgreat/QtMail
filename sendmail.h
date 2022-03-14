@@ -14,8 +14,9 @@ class SendMail : public QDialog
     Q_OBJECT
 
 public:
-    explicit SendMail(QWidget *parent = nullptr);
+    explicit SendMail(User currentuser,QWidget *parent = nullptr);
     ~SendMail();
+    User currentuser;
 
 private slots:
     void on_pushButton_clicked();
