@@ -14,7 +14,7 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">border-image: url(:/pics/邮箱图标.png);
+   <string notr="true">
 border-image: url(:/pics/bkd.png);</string>
   </property>
   <widget class="QTextEdit" name="textEdit">
@@ -66,8 +66,7 @@ border-image: url(:/pics/bkd.png);</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/新建文件夹/确认.jpg);
-border-image: url(:/pics/确认.jpg);</string>
+    <string notr="true">border-image: url(:/pics/comfirme.jpg);</string>
    </property>
    <property name="text">
     <string/>

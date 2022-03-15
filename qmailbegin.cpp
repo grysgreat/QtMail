@@ -154,7 +154,6 @@ void QMailbegin::initonesinfo(){
 
         ui->listWidget->addItem(QString::fromStdString(s));
         i++;
-        Llenth++;
     }
 
 
@@ -162,9 +161,10 @@ void QMailbegin::initonesinfo(){
 
 void QMailbegin::on_listWidget_clicked(const QModelIndex &index)
 {
-    int i = ui->listWidget->currentRow();
-    cout<<i<<"-----------"<<endl;
-  //  this->CurrentUser.RetrEmail(Llenth-i);
-    string s =  qApp->applicationDirPath().toStdString() +"/"+ CurrentUser.email+"/"+this->CurrentUser.uidlEmial[this->CurrentUser.allUIDLs[Llenth-i]].UIDL+".html";
-  //  QDesktopServices::openUrl(QUrl(QLatin1String(&s[0])));
+    int sizeofemial = this->CurrentUser.allUIDLs.size();
+    int emailnumber =index.row();
+    this->CurrentUser.RetrEmail(sizeofemial-emailnumber-1);
+    string s =  qApp->applicationDirPath().toStdString() +"/"+ CurrentUser.email+"/"+this->CurrentUser.allUIDLs[sizeofemial-emailnumber-1]+".html";
+
+    QDesktopServices::openUrl(QUrl(QLatin1String(&s[0])));
 }

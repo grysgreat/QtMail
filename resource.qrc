@@ -2,18 +2,18 @@
     <qresource prefix="/">
         <file>pics/bkd.png</file>
         <file>pics/check.jpg</file>
-        <file>pics/发送邮件.jpg</file>
-        <file>pics/空白1.jpg</file>
-        <file>pics/空白2.jpg</file>
-        <file>pics/空白3.jpg</file>
-        <file>pics/确认.jpg</file>
-        <file>pics/网页查看.jpg</file>
-        <file>pics/选择文件.jpg</file>
-        <file>pics/邮件查看.jpg</file>
-        <file>pics/邮件发送.jpg</file>
-        <file>pics/邮件列表.jpg</file>
-        <file>pics/邮箱图标.png</file>
-        <file>pics/注册邮箱信息.jpg</file>
+        <file>pics/sendemail.jpg</file>
+        <file>pics/space1.jpg</file>
+        <file>pics/space2.jpg</file>
+        <file>pics/space3.jpg</file>
+        <file>pics/comfirme.jpg</file>
+        <file>pics/webside.jpg</file>
+        <file>pics/selectfile.jpg</file>
+        <file>pics/emaillook.jpg</file>
+        <file>pics/emailsend.jpg</file>
+        <file>pics/emiallist.jpg</file>
+        <file>pics/email.png</file>
+        <file>pics/register.jpg</file>
         <file>pics/fromt.png</file>
         <file>pics/loading.gif</file>
     </qresource>

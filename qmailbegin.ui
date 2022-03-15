@@ -42,7 +42,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/pics/邮件列表.jpg);</string>
+    <string notr="true">border-image: url(:/pics/emiallist.jpg);</string>
    </property>
    <property name="text">
     <string/>
@@ -58,8 +58,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">
-border-image: url(:/pics/发送邮件.jpg);</string>
+    <string notr="true">border-image: url(:/pics/sendemail.jpg);</string>
    </property>
    <property name="text">
     <string/>
@@ -75,7 +74,7 @@ border-image: url(:/pics/发送邮件.jpg);</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/pics/邮件查看.jpg);</string>
+    <string notr="true">border-image: url(:/pics/emaillook.jpg);</string>
    </property>
    <property name="text">
     <string/>
@@ -91,7 +90,7 @@ border-image: url(:/pics/发送邮件.jpg);</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/pics/注册邮箱信息.jpg);</string>
+    <string notr="true">border-image: url(:/pics/register.jpg);</string>
    </property>
    <property name="text">
     <string/>
@@ -133,7 +132,7 @@ border-image: url(:/pics/发送邮件.jpg);</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/pics/邮箱图标.png);</string>
+    <string notr="true">border-image: url(:/pics/email.png);</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -144,6 +143,9 @@ border-image: url(:/pics/发送邮件.jpg);</string>
      <width>121</width>
      <height>81</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <property name="text">
     <string/>

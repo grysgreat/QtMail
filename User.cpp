@@ -107,7 +107,7 @@ void User::RetrEmail(int id) {
             POP3Connector pop3(this->email, this->password);
             Email retremail = this->uidlEmial[this->allUIDLs[id]];
             cout<<this->allUIDLs[id];
-            pop3.Retr(id,this->allUIDLs[id]);
+            pop3.Retr(id+1,this->allUIDLs[id]);
             }
 
     catch (Exception e) {

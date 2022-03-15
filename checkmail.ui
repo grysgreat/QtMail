@@ -68,7 +68,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/pics/网页查看.jpg);</string>
+    <string notr="true">border-image: url(:/pics/webside.jpg);</string>
    </property>
    <property name="text">
     <string/>
