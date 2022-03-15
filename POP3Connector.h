@@ -23,6 +23,6 @@ public:
 	Email getEmailByTop(int id);
     void Delt(int id);
 	~POP3Connector();
-    
+    vector<string> getallUIDL2();
 };
 #endif

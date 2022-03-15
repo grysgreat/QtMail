@@ -14,7 +14,7 @@ User::User(string emails, string passwords,bool init) {
         POP3Connector(emails, passwords);
        // SMTPConnector(emails,passwords);
         SaveInfoToFile(emails, passwords);
-        printf("binding success!\n");
+      //  printf("binding success!\n");
     }
     catch (Exception e) {
         e.Print();
@@ -50,7 +50,7 @@ vector<User> User::getallUserfromConf() {
     getFiles(PATH,alle);
 
     for (int i = 0; i <alle.size(); ++i) {
-        cout<<alle[i]<<endl;
+       // cout<<alle[i]<<endl;
         addr = alle[i];
         GetInfoFromFile(addr, pass);
         uu.push_back(User(addr,pass));
@@ -76,7 +76,6 @@ void User::getallEmailinfo() {
         //this->Emailid[emailist[i].UIDL] = (email_number-i);
         emailist[i].SetUIDL(allUIDLs[i]);
         this->uidlEmial[allUIDLs[i]] = emailist[i];
-
     }
 }
 
@@ -106,7 +105,7 @@ void User::RetrEmail(int id) {
 
             POP3Connector pop3(this->email, this->password);
             Email retremail = this->uidlEmial[this->allUIDLs[id]];
-            cout<<this->allUIDLs[id];
+          //  cout<<this->allUIDLs[id];
             pop3.Retr(id+1,this->allUIDLs[id]);
             }
 
@@ -153,7 +152,7 @@ void User::DeleteEmail(int id) {
         POP3Connector pop3(this->email, this->password);
         pop3.Delt(id);
     }catch (Exception e){
-        cout<<"Delete fails"<<endl;
+       // cout<<"Delete fails"<<endl;
     }
 }
 
@@ -166,5 +165,5 @@ void User::AddEmailById(int i){
 }
 void User::refreshUIDLs(){
     POP3Connector pop3(this->email, this->password);
-    this->allUIDLs = pop3.getallUIDL();
+    this->allUIDLs = pop3.getallUIDL2();
 }

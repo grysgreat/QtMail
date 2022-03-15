@@ -49,11 +49,11 @@ void checkMail::on_pushButton_clicked()
     vector<User> all  = User::getallUserfromConf();
     if(!all.empty()){
         User myuser = all[0];
-        cout<<myuser.email<<endl;
+       // cout<<myuser.email<<endl;
         myuser.getallEmailinfo();
         myuser.allUIDLs.size();
-        cout<<"get fui"<<endl;
-        cout<<"t:"<<t<<"size:"<<myuser.allUIDLs.size()<<endl;
+        //cout<<"get fui"<<endl;
+        //cout<<"t:"<<t<<"size:"<<myuser.allUIDLs.size()<<endl;
 
         myuser.RetrEmail(myuser.allUIDLs.size()-t-2);
         //myuser.emailist[1];

@@ -90,9 +90,9 @@ void POP3Connector::Retr(int id,string UIDL) {
 	}
 POP3Connector::~POP3Connector() {
 
-   if(Send("quit \r\n")) {
-       cout<<"quit success!"<<endl;
-   }
+  // if(Send("quit \r\n")) {
+       //cout<<"quit success!"<<endl;
+  // }
 
 }
 
@@ -108,7 +108,9 @@ void POP3Connector::Delt(int id) {
         printf("delt...\n");
         string ret = Receive(50);
     }else printf("delt error...\n");
-
+     if(Send("quit \r\n")) {
+        // cout<<"quit success!"<<endl;
+     }
 }
 
 
@@ -159,6 +161,37 @@ vector<string> POP3Connector::getallUIDL() {
                 else throw Exception("send top failed");
 
             }
+
+    return emailuidl;
+}
+
+vector<string> POP3Connector::getallUIDL2(){
+    vector <string> emailuidl;
+    if (Send("stat\r\n")) {
+        string ret;
+        ret = Receive(100);
+        if (ret.length() > 0 && ret[0] == '+') {
+            if(Send("uidl \r\n")){
+            ret = Receive(-1);
+            vector<string> res;
+
+            SplitString(res, ret, '\n');
+            for(string eachuidl:res){
+                if(eachuidl.size()<10) continue;
+                vector <string>temp;
+                SplitString(temp,eachuidl,' ');
+                string UIDLtemp = temp[1];
+                cout<<temp[1];
+                UIDLtemp.erase(std::remove(UIDLtemp.begin(),UIDLtemp.end(),'\n'),UIDLtemp.end());
+                UIDLtemp.erase(std::remove(UIDLtemp.begin(),UIDLtemp.end(),'\r'),UIDLtemp.end());
+                emailuidl.push_back(UIDLtemp);
+            }
+
+            }
+        }
+    }else{
+        throw Exception("connect fails.");
+    }
 
     return emailuidl;
 }

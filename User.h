@@ -21,6 +21,8 @@ private:
 public:
     string email;
     string password;
+    POP3Connector * pop3;
+
     vector<Email> emailist ;///弃用！不用vector的原因时每当有新邮件产生的时候会让整体的顺序+1 从而错乱
 
                     // closetodo: 更改这个vector 创建一个uidi-email的对应

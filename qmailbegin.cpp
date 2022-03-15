@@ -113,6 +113,7 @@ void QMailbegin::on_comboBox_currentIndexChanged(int index)
 if(index >= 0 && index < alluser.size()){
      this->CurrentUser=this->alluser[index];
 }
+ui->listWidget->clear();
 
 }
 
@@ -147,9 +148,6 @@ void QMailbegin::rsetText(QListWidgetItem *item){
 
 }
 void QMailbegin::initonesinfo(){
-    cout<<"11";
-
-
 //    //this->CurrentUser.getallEmailinfo();//初始化用户邮件信息 即维护 邮件的vector与map
 //    int i=1;
 //    //该过程需要耗时较长 想办法进行多线程的转换
@@ -165,6 +163,7 @@ void QMailbegin::initonesinfo(){
 //        ui->listWidget->addItem(QString::fromStdString(s));
 //        i++;
 //    }
+if(this->CurrentUser.uidlEmial.size()<1){
 
     this->CurrentUser.refreshUIDLs();
     for(int i=this->CurrentUser.allUIDLs.size();i>=1;i--){
@@ -174,9 +173,20 @@ void QMailbegin::initonesinfo(){
         string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
         cout<<s;
         ui->listWidget->addItem(QString::fromStdString(s));
-        ui->listWidget->update();
+        //ui->listWidget->update();
         QApplication::processEvents();
     }
+}
+else{
+    for(int i=this->CurrentUser.allUIDLs.size();i>=1;i--){
+        Email e = this->CurrentUser.uidlEmial[this->CurrentUser.allUIDLs[this->CurrentUser.allUIDLs.size()-i]];
+        string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
+        cout<<s;
+        ui->listWidget->addItem(QString::fromStdString(s));
+        //ui->listWidget->update();
+        QApplication::processEvents();
+    }
+}
 
 }
 
