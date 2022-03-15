@@ -103,6 +103,10 @@ public:
 
 
     void DeleteEmail(int id);
+
+    void AddEmailById(int i);
+
+    void refreshUIDLs();
 };
 
 #endif //EMAIL_USER_H

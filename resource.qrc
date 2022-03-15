@@ -16,5 +16,6 @@
         <file>pics/register.jpg</file>
         <file>pics/fromt.png</file>
         <file>pics/loading.gif</file>
+        <file>pics/front2.png</file>
     </qresource>
 </RCC>
