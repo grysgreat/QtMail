@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>799</width>
-    <height>523</height>
+    <width>812</width>
+    <height>526</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -100,21 +100,23 @@
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>30</y>
+     <y>10</y>
      <width>631</width>
-     <height>481</height>
+     <height>511</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/pics/fromt.png);</string>
+    <string notr="true">border-image: url(:/pics/space3.jpg);
+color: rgb(0, 255, 255);
+font: 12pt &quot;Bahnschrift&quot;;</string>
    </property>
   </widget>
   <widget class="QComboBox" name="comboBox">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>120</y>
-     <width>131</width>
+     <x>0</x>
+     <y>110</y>
+     <width>141</width>
      <height>22</height>
     </rect>
    </property>
@@ -145,7 +147,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">border-color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
     <string/>

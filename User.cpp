@@ -157,3 +157,14 @@ void User::DeleteEmail(int id) {
     }
 }
 
+void User::AddEmailById(int i){
+    POP3Connector pop3(this->email, this->password);
+    Email tmp = pop3.getEmailByTop(i);
+
+    tmp.UIDL = this->allUIDLs[this->allUIDLs.size()-i];
+    this->uidlEmial[tmp.UIDL] = tmp;
+}
+void User::refreshUIDLs(){
+    POP3Connector pop3(this->email, this->password);
+    this->allUIDLs = pop3.getallUIDL();
+}
