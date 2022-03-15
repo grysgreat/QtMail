@@ -163,8 +163,8 @@ void QMailbegin::initonesinfo(){
 void QMailbegin::on_listWidget_clicked(const QModelIndex &index)
 {
     int i = ui->listWidget->currentRow();
-
-    this->CurrentUser.RetrEmail(Llenth-i);
+    cout<<i<<"-----------"<<endl;
+  //  this->CurrentUser.RetrEmail(Llenth-i);
     string s =  qApp->applicationDirPath().toStdString() +"/"+ CurrentUser.email+"/"+this->CurrentUser.uidlEmial[this->CurrentUser.allUIDLs[Llenth-i]].UIDL+".html";
-    QDesktopServices::openUrl(QUrl(QLatin1String(&s[0])));
+  //  QDesktopServices::openUrl(QUrl(QLatin1String(&s[0])));
 }

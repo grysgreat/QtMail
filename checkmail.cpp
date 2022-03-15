@@ -51,10 +51,13 @@ void checkMail::on_pushButton_clicked()
         User myuser = all[0];
         cout<<myuser.email<<endl;
         myuser.getallEmailinfo();
+        myuser.allUIDLs.size();
         cout<<"get fui"<<endl;
-        myuser.RetrEmail(all.size()-t+1);
+        cout<<"t:"<<t<<"size:"<<myuser.allUIDLs.size()<<endl;
+        cout<<all.size()-t+1<<endl;
+        myuser.RetrEmail(myuser.allUIDLs.size()-t+1);
         //myuser.emailist[1];
-        Email tmp = myuser.uidlEmial[myuser.allUIDLs[all.size()-t+1]];
+        Email tmp = myuser.uidlEmial[myuser.allUIDLs[myuser.allUIDLs.size()-t+1]];
 
         this->s =  qApp->applicationDirPath().toStdString() +"/"+ myuser.email+"/"+tmp.UIDL+".html";
 
