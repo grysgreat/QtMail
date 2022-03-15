@@ -19,6 +19,16 @@ Email& Email::FillTopInfo(const string & s) {
 		}
 		return *this;
 	}
+Email& Email::FillTopInfoRude(const string &s){
+    this->topStr = s;
+    this->from = ParseString(GetValueByKey(s, "\nFrom"));
+    this->to = ParseString(GetValueByKey(s, "\nTo"));
+    this->date = GetValueByKey(s, "\nDate");
+    string subjecttemp = GetValueByKey(s, "\nSubject");
+    this->subject = ParseString(subjecttemp);
+
+    return *this;
+}
 Email& Email::PrintTopInfo() {
 		//printf("ID\tFrom\tTo\tDate\tSubject\tCount=%d\n",emailCount);
 		printf("%s\t%s\t%s\t%s\n", from.c_str(), to.c_str(), date.c_str(), subject.c_str());

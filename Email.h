@@ -40,6 +40,7 @@ public:
     Email& SetSubject(string s) ;
     Email& SetMIMEContent(MIMEContent* cont) ;
     string BuidEmailString() ;
+    Email& FillTopInfoRude(const string &s);
 
 };
 
