@@ -101,7 +101,7 @@ border-image: url(:/pics/发送邮件.jpg);</string>
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>20</y>
+     <y>30</y>
      <width>631</width>
      <height>481</height>
     </rect>
@@ -147,28 +147,6 @@ border-image: url(:/pics/发送邮件.jpg);</string>
    </property>
    <property name="text">
     <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>31</x>
-     <y>134</y>
-     <width>101</width>
-     <height>91</height>
-    </rect>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">image: url(:/loading.gif);</string>
-   </property>
-   <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt; loading...&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <property name="scaledContents">
-    <bool>true</bool>
    </property>
   </widget>
  </widget>

@@ -46,7 +46,7 @@ public:
         p.setColor(QPalette::Window, QColor(0,0,0,200));
         if (level ==1)
         {
-            p.setColor(QPalette::Window, QColor(0,0,0,200));//黑色
+            p.setColor(QPalette::Window, QColor(0,0,0,100));//黑色
         }
         else if (level == 2)
         {

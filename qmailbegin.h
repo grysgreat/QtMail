@@ -19,8 +19,9 @@
 #include <QtConcurrent/QtConcurrent>
 #include<QMovie>
 #include "toast.h"
-
-
+#include <QListWidgetItem>
+#include <QListWidget>
+#include <QLabel>
 namespace Ui {
 class QMailbegin;
 }
@@ -36,8 +37,9 @@ public:
     vector<User> alluser;
     //当前用户
     User CurrentUser;
-
+    void rsetText(QListWidgetItem *item);
     infrom BindNewuser;
+    int Llenth=0;
 
 
 private slots:
@@ -58,6 +60,8 @@ private slots:
     void refreshuser();
     void on_pushButton_5_clicked();
    void initonesinfo();
+   void on_listWidget_clicked(const QModelIndex &index);
+
 private:
     Ui::QMailbegin *ui;
 };

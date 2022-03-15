@@ -77,7 +77,6 @@ ui->pushButton_3->setDisabled(true);
        // QMessageBox::information(this, tr("success"),  tr("发送成功"),QMessageBox::Save | QMessageBox::Discard,  QMessageBox::Discard);
         ui->label->setVisible(false);
         ui->pushButton_3->setEnabled(true);
-
         Toast::instance().show(1, "load the top of all eamils finished!");
     }
 
@@ -135,7 +134,10 @@ void QMailbegin::on_pushButton_5_clicked()
 {
     refreshuser();
 }
+void QMailbegin::rsetText(QListWidgetItem *item){
 
+
+}
 void QMailbegin::initonesinfo(){
     cout<<"11";
     this->CurrentUser.getallEmailinfo();//初始化用户邮件信息 即维护 邮件的vector与map
@@ -152,6 +154,17 @@ void QMailbegin::initonesinfo(){
 
         ui->listWidget->addItem(QString::fromStdString(s));
         i++;
+        Llenth++;
     }
 
+
+}
+
+void QMailbegin::on_listWidget_clicked(const QModelIndex &index)
+{
+    int i = ui->listWidget->currentRow();
+
+    this->CurrentUser.RetrEmail(Llenth-i);
+    string s =  qApp->applicationDirPath().toStdString() +"/"+ CurrentUser.email+"/"+this->CurrentUser.uidlEmial[this->CurrentUser.allUIDLs[Llenth-i]].UIDL+".html";
+    QDesktopServices::openUrl(QUrl(QLatin1String(&s[0])));
 }
