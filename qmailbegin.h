@@ -39,7 +39,7 @@ public:
     User CurrentUser;
     void rsetText(QListWidgetItem *item);
     infrom BindNewuser;
-    int Llenth=0;
+
 
 
 private slots:
