@@ -52,9 +52,6 @@ private slots:
     void on_pushButton_clicked();
 
     void on_comboBox_activated(const QString &arg1);
-
-    void on_comboBox_currentIndexChanged(const QString &arg1);
-
     void on_comboBox_currentIndexChanged(int index);
 
     void refreshuser();

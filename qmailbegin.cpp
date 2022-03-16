@@ -1,4 +1,4 @@
-#include "qmailbegin.h"
+﻿#include "qmailbegin.h"
 #include "ui_qmailbegin.h"
 #include "QMovie"
 QMailbegin::QMailbegin(QWidget *parent) :
@@ -106,28 +106,31 @@ void QMailbegin::on_comboBox_activated(const QString &arg1)
 
 }
 
-void QMailbegin::on_comboBox_currentIndexChanged(const QString &arg1){
-
-}
-
 void QMailbegin::on_comboBox_currentIndexChanged(int index)
 {
 if(index >= 0 && index < alluser.size()){
+cout<< "change user "<< index<<endl;
+    for(int i =0;i < this->alluser.size();i++){
+        if(this->alluser[i].email == CurrentUser.email){
+            alluser[i] = CurrentUser;
+            break;
+        }
 
-    for(int i =0;i< this->alluser.size();i++){
-        if(this->alluser[i].email == CurrentUser.email);
-        alluser[i] = CurrentUser;
-        break;
     }
-     this->CurrentUser=this->alluser[index];
-       ui->listWidget->clear();
+
+
+    this->CurrentUser=this->alluser[index];
+    ui->listWidget->clear();
     //initonesinfo();
+
        if( this->CurrentUser.uidlEmial.size()>1){
+           cout<<"is not new "<<endl;
            for(int i=this->CurrentUser.allUIDLs.size();i>=1;i--){
                Email e = this->CurrentUser.uidlEmial[this->CurrentUser.allUIDLs[this->CurrentUser.allUIDLs.size()-i]];
                string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
               // cout<<s;
-               ui->listWidget->addItem(QString::fromStdString(s));
+               //ui->listWidget->addItem(QString::fromStdString(s));
+               ui->listWidget->addItem(QString::fromUtf8(&s[0]));
                //ui->listWidget->update();
                QApplication::processEvents();
            }
@@ -188,10 +191,10 @@ if(this->CurrentUser.uidlEmial.size()<1){
     for(int i=this->CurrentUser.allUIDLs.size();i>=1;i--){
         this->CurrentUser.AddEmailById(i);
         Email e = this->CurrentUser.uidlEmial[this->CurrentUser.allUIDLs[this->CurrentUser.allUIDLs.size()-i]];
-
         string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
        // cout<<s;
-        ui->listWidget->addItem(QString::fromStdString(s));
+        cout<<s<<endl;
+        ui->listWidget->addItem(QString::fromUtf8(&s[0]));
         //ui->listWidget->update();
         QApplication::processEvents();
     }
@@ -208,6 +211,5 @@ void QMailbegin::on_listWidget_clicked(const QModelIndex &index)
     int emailnumber =index.row();
     this->CurrentUser.RetrEmail(sizeofemial-emailnumber-1);
     string s =  qApp->applicationDirPath().toStdString() +"/"+ CurrentUser.email+"/"+this->CurrentUser.allUIDLs[sizeofemial-emailnumber-1]+".html";
-
     QDesktopServices::openUrl(QUrl(QLatin1String(&s[0])));
 }
