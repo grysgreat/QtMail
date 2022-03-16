@@ -1,8 +1,69 @@
-﻿//
-// Created by HAN on 2022/3/8.
+#include <iostream>
+#include <string>
+#include <windows.h>
+#include <wchar.h>
+#include <vector>
+#include <io.h>
+#include<regex>
+using namespace std;
+std::string string_To_UTF8(const std::string & str)
+{
+int nwLen = ::MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, NULL, 0);
+ 
+wchar_t * pwBuf = new wchar_t[nwLen + 1];//һ��Ҫ��1����Ȼ�����β��
+ZeroMemory(pwBuf, nwLen * 2 + 2);
+ 
+::MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.length(), pwBuf, nwLen);
+ 
+int nLen = ::WideCharToMultiByte(CP_UTF8, 0, pwBuf, -1, NULL, NULL, NULL, NULL);
+ 
+char * pBuf = new char[nLen + 1];
+ZeroMemory(pBuf, nLen + 1);
+ 
+::WideCharToMultiByte(CP_UTF8, 0, pwBuf, nwLen, pBuf, nLen, NULL, NULL);
+ 
+std::string retStr(pBuf);
+ 
+delete []pwBuf;
+delete []pBuf;
+ 
+pwBuf = NULL;
+pBuf = NULL;
+ 
+return retStr;
+}
 //
 
-#include "util.h"
+
+std::string UTF8_To_string(const std::string & str)
+{
+int nwLen = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, NULL, 0);
+ 
+wchar_t * pwBuf = new wchar_t[nwLen + 1];//һ��Ҫ��1����Ȼ�����β��
+memset(pwBuf, 0, nwLen * 2 + 2);
+ 
+MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.length(), pwBuf, nwLen);
+ 
+int nLen = WideCharToMultiByte(CP_ACP, 0, pwBuf, -1, NULL, NULL, NULL, NULL);
+ 
+char * pBuf = new char[nLen + 1];
+memset(pBuf, 0, nLen + 1);
+ 
+WideCharToMultiByte(CP_ACP, 0, pwBuf, nwLen, pBuf, nLen, NULL, NULL);
+ 
+std::string retStr = pBuf;
+ 
+delete []pBuf;
+delete []pwBuf;
+ 
+pBuf = NULL;
+pwBuf = NULL;
+ 
+return retStr;
+}
+//
+// Created by HAN on 2022/3/8.
+//
 
 /**
  *
@@ -10,16 +71,7 @@
  * @param emailAddress
  * @return 通过邮箱获取服务器的ip地址
  */
-string GetEmailServerIP(string protoName, string emailAddress) {
-    string serverName = protoName + "." + emailAddress.substr(emailAddress.find("@") + 1);
-    HOSTENT* hostent = gethostbyname(serverName.c_str());
-    if (hostent == NULL) throw Exception("gethostbyname failed with " + serverName);
-    if (hostent->h_addrtype != AF_INET) throw Exception("hostent addrtype is not AF_INET");
-    in_addr addr;
-    if (hostent->h_addr_list[0] == 0) throw Exception("hostent addr_list[0] equals zero");
-    addr.S_un.S_addr = *(u_long*)hostent->h_addr_list[0];
-    return inet_ntoa(addr);
-}
+
 
 /**
  *
@@ -251,7 +303,12 @@ bool DeQuoPri(const string& _src, string filename) {
     else return false;
 }
 
-
+/**
+ * @brief Get the String From File object
+ * 
+ * @param charset 
+ * @return string 
+ */
 string GetStringFromFile(string charset) {
     string ret = "";
     if ( charset=="utf-8") {
@@ -317,6 +374,7 @@ string ParseString(string s) {
                             DeCode("temp", v[3], "base64");
                             ret += GetStringFromFile("utf-8");
                         }
+        
                         else {
                             DeCode("temp", v[3], "base64");
                             ret += GetStringFromFile("ansi");
@@ -408,7 +466,7 @@ void SaveInfoToFile(string emailAddress, string password) {
     FILE* fp = fopen( (PATH +"\\"+emailAddress+".conf").c_str(), "w");
     if (fp != NULL)
         fprintf(fp, "%s\n%s", emailAddress.c_str(), password.c_str());
-    else throw Exception("can't create myemail.conf in " + PATH + "; maybe you don't have permission");
+    else return ;
     fclose(fp);
 }
 
@@ -488,64 +546,12 @@ bool isNumber(string s) {
     return true;
 }
 
-std::string string_To_UTF8(const std::string & str)
-{
-int nwLen = ::MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, NULL, 0);
 
-wchar_t * pwBuf = new wchar_t[nwLen + 1];//一定要加1，不然会出现尾巴
-ZeroMemory(pwBuf, nwLen * 2 + 2);
-
-::MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.length(), pwBuf, nwLen);
-
-int nLen = ::WideCharToMultiByte(CP_UTF8, 0, pwBuf, -1, NULL, NULL, NULL, NULL);
-
-char * pBuf = new char[nLen + 1];
-ZeroMemory(pBuf, nLen + 1);
-
-::WideCharToMultiByte(CP_UTF8, 0, pwBuf, nwLen, pBuf, nLen, NULL, NULL);
-
-std::string retStr(pBuf);
-
-delete []pwBuf;
-delete []pBuf;
-
-pwBuf = NULL;
-pBuf = NULL;
-
-return retStr;
+int main (){
+    string a ="=?utf-8?B?OTk5566A5Y6G5ZCI6ZuG5pawLnppcA==?=";
+    cout << (ParseString(a));
+    return 0;
 }
-
-
-
-
-
-std::string UTF8_To_string(const std::string & str)
-{
-int nwLen = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, NULL, 0);
-
-wchar_t * pwBuf = new wchar_t[nwLen + 1];//一定要加1，不然会出现尾巴
-memset(pwBuf, 0, nwLen * 2 + 2);
-
-MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.length(), pwBuf, nwLen);
-
-int nLen = WideCharToMultiByte(CP_ACP, 0, pwBuf, -1, NULL, NULL, NULL, NULL);
-
-char * pBuf = new char[nLen + 1];
-memset(pBuf, 0, nLen + 1);
-
-WideCharToMultiByte(CP_ACP, 0, pwBuf, nwLen, pBuf, nLen, NULL, NULL);
-
-std::string retStr = pBuf;
-
-delete []pBuf;
-delete []pwBuf;
-
-pBuf = NULL;
-pwBuf = NULL;
-
-return retStr;
-}
-
 
 
 

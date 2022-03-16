@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by HAN on 2022/3/8.
 //
 
@@ -10,6 +10,8 @@
 #include<winsock2.h>
 #include<vector>
 #include "Exception.h"
+#include <wchar.h>
+
 #pragma comment(lib,"ws2_32.lib")
 using namespace std;
 
@@ -33,6 +35,9 @@ bool GetInfoFromFile(string& emailAddress, string& password);
 void getFiles( string path, vector<string>& files );
 //222114
 bool isNumber(string s) ;
+std::string string_To_UTF8(const std::string & str);
+
+std::string UTF8_To_string(const std::string & str);
 
 
 #endif //UNTITLED1_UTIL_H

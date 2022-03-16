@@ -1,4 +1,4 @@
-#ifndef QMAILBEGIN_H
+﻿#ifndef QMAILBEGIN_H
 #define QMAILBEGIN_H
 
 #include <QDialog>
@@ -22,6 +22,11 @@
 #include <QListWidgetItem>
 #include <QListWidget>
 #include <QLabel>
+#include"json.hpp"
+
+#include <fstream>
+
+
 namespace Ui {
 class QMailbegin;
 }

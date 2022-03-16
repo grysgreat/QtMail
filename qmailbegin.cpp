@@ -1,6 +1,8 @@
 ﻿#include "qmailbegin.h"
 #include "ui_qmailbegin.h"
 #include "QMovie"
+
+
 QMailbegin::QMailbegin(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::QMailbegin)
@@ -123,10 +125,12 @@ cout<< "change user "<< index<<endl;
     ui->listWidget->clear();
     //initonesinfo();
 
+
+
        if( this->CurrentUser.uidlEmial.size()>1){
            cout<<"is not new "<<endl;
            for(int i=this->CurrentUser.allUIDLs.size();i>=1;i--){
-               Email e = this->CurrentUser.uidlEmial[this->CurrentUser.allUIDLs[this->CurrentUser.allUIDLs.size()-i]];
+               Email e = this->CurrentUser.uidlEmial[this->CurrentUser.allUIDLs[this->CurrentUser.allUIDLs.size()-i]];                  
                string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
               // cout<<s;
                //ui->listWidget->addItem(QString::fromStdString(s));
@@ -135,6 +139,9 @@ cout<< "change user "<< index<<endl;
                QApplication::processEvents();
            }
        }
+
+
+
 }
 
 }
@@ -186,18 +193,41 @@ void QMailbegin::initonesinfo(){
 //        i++;
 //    }
 if(this->CurrentUser.uidlEmial.size()<1){
+//    nlohmann::json all_email_json = nlohmann::json::array();
+//    this->CurrentUser.refreshUIDLs();
+//    for(int i=this->CurrentUser.allUIDLs.size();i>=1;i--){
+//        this->CurrentUser.AddEmailById(i);
+//        Email e = this->CurrentUser.uidlEmial[this->CurrentUser.allUIDLs[this->CurrentUser.allUIDLs.size()-i]];
+//         all_email_json.push_back(e.returnjson());
+//        string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
+//       // cout<<s;
+//        cout<<s<<endl;
+//        ui->listWidget->addItem(QString::fromUtf8(&s[0]));
+//        //ui->listWidget->update();
+//        QApplication::processEvents();
+//    }
+//        cout<<all_email_json<<endl;
 
+//        emailjson<<all_email_json;
+//        emailjson.close();
+
+    nlohmann::json all_email_json ;
+    string jsonpath = this->CurrentUser.email+"/allemail.json";
     this->CurrentUser.refreshUIDLs();
-    for(int i=this->CurrentUser.allUIDLs.size();i>=1;i--){
-        this->CurrentUser.AddEmailById(i);
-        Email e = this->CurrentUser.uidlEmial[this->CurrentUser.allUIDLs[this->CurrentUser.allUIDLs.size()-i]];
-        string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
-       // cout<<s;
-        cout<<s<<endl;
-        ui->listWidget->addItem(QString::fromUtf8(&s[0]));
-        //ui->listWidget->update();
-        QApplication::processEvents();
+    ifstream inins(jsonpath,ios::in);
+    inins>>all_email_json;
+    int i=1;
+    for (auto& element : all_email_json) {
+       Email e(element);
+              string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
+       //       // cout<<s;
+              cout<<s<<endl;
+             ui->listWidget->addItem(QString::fromUtf8(&s[0]));
+       this->CurrentUser.uidlEmial[e.UIDL] =e;
+       i++;
     }
+    inins.close();
+
 }
 else{
 

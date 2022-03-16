@@ -53,7 +53,9 @@ HEADERS += \
         POP3Connector.h\
         STMPConnector.h\
         User.h \
-    qmailbegin.h
+    qmailbegin.h\
+    json.hpp
+
 
 FORMS += \
         mainwindow.ui \
@@ -76,4 +78,3 @@ RESOURCES += \
     loading.gif
 
 DISTFILES +=
-
