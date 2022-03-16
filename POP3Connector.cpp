@@ -181,7 +181,7 @@ vector<string> POP3Connector::getallUIDL2(){
                 vector <string>temp;
                 SplitString(temp,eachuidl,' ');
                 string UIDLtemp = temp[1];
-                cout<<temp[1];
+                //cout<<temp[1];
                 UIDLtemp.erase(std::remove(UIDLtemp.begin(),UIDLtemp.end(),'\n'),UIDLtemp.end());
                 UIDLtemp.erase(std::remove(UIDLtemp.begin(),UIDLtemp.end(),'\r'),UIDLtemp.end());
                 emailuidl.push_back(UIDLtemp);

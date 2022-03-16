@@ -43,7 +43,7 @@ void SendMail::on_pushButton_2_clicked()
     remove(&PATH[0]);
 
 
-    cout<<PATH<<endl;
+    //cout<<PATH<<endl;
     FILE* fp = fopen(PATH.c_str(), "wb");
 
     //User myuser = User::getallUserfromConf()[0];

@@ -99,11 +99,11 @@ void MIMEContent::SaveToFile(string subject,string email) {
 				|| contentTransferEnCodeing.find("Base64") != string::npos) {
 			    //closetodo: 要解决路径保存问题
 				DeCode(filename, contentString, "base64");
-				printf("had saved %s\n", filename.c_str());
+                //printf("had saved %s\n", filename.c_str());
 			}
 			else {//不是base64，都认为是QuoPri
 				DeQuoPri(contentString, filename);
-				printf("had saved %s\n",filename.c_str());
+                //printf("had saved %s\n",filename.c_str());
 			}
 		}
 		else {
@@ -162,11 +162,11 @@ void MIMEContent::SaveToFileByUIDL(string UIDL, string email) {
             || contentTransferEnCodeing.find("Base64") != string::npos) {
             //closetodo: 要解决路径保存问题
             DeCode(filename, contentString, "base64");
-            printf("had saved %s\n", filename.c_str());
+            //printf("had saved %s\n", filename.c_str());
         }
         else {//不是base64，都认为是QuoPri
             DeQuoPri(contentString, filename);
-            printf("had saved %s\n",filename.c_str());
+            //printf("had saved %s\n",filename.c_str());
         }
     }
     else {

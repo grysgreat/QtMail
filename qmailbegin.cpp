@@ -24,10 +24,12 @@ QMailbegin::QMailbegin(QWidget *parent) :
     // 获取到所有存在的用户 并将其赋值给currentuser
     this->alluser  = User::getallUserfromConf(); 
     if(alluser.empty()){
-        cout<<"there is no user ";
+        //cout<<"there is no user ";
+        Toast::instance().show(1,"there is no user,please input first");
     }//如果不存在已经注册过的用户  则想办法进行响应提示
     else {// 如果有用户  则将首个用户作为当前用户进行响应操作
         this->CurrentUser = alluser[0];
+        //this->currentuser = &alluser[0];
     }
     for(auto user:this->alluser){
         ui->comboBox->addItem(QString::fromStdString(user.email));
@@ -111,9 +113,26 @@ void QMailbegin::on_comboBox_currentIndexChanged(const QString &arg1){
 void QMailbegin::on_comboBox_currentIndexChanged(int index)
 {
 if(index >= 0 && index < alluser.size()){
+
+    for(int i =0;i< this->alluser.size();i++){
+        if(this->alluser[i].email == CurrentUser.email);
+        alluser[i] = CurrentUser;
+        break;
+    }
      this->CurrentUser=this->alluser[index];
+       ui->listWidget->clear();
+    //initonesinfo();
+       if( this->CurrentUser.uidlEmial.size()>1){
+           for(int i=this->CurrentUser.allUIDLs.size();i>=1;i--){
+               Email e = this->CurrentUser.uidlEmial[this->CurrentUser.allUIDLs[this->CurrentUser.allUIDLs.size()-i]];
+               string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
+              // cout<<s;
+               ui->listWidget->addItem(QString::fromStdString(s));
+               //ui->listWidget->update();
+               QApplication::processEvents();
+           }
+       }
 }
-ui->listWidget->clear();
 
 }
 
@@ -136,7 +155,7 @@ void QMailbegin::refreshuser(){
     for(auto user:this->alluser){
         ui->comboBox->addItem(QString::fromStdString(user.email));
     }
-    cout<<"endd!!!!!";
+   // cout<<"endd!!!!!";
 }
 
 void QMailbegin::on_pushButton_5_clicked()
@@ -171,21 +190,14 @@ if(this->CurrentUser.uidlEmial.size()<1){
         Email e = this->CurrentUser.uidlEmial[this->CurrentUser.allUIDLs[this->CurrentUser.allUIDLs.size()-i]];
 
         string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
-        cout<<s;
+       // cout<<s;
         ui->listWidget->addItem(QString::fromStdString(s));
         //ui->listWidget->update();
         QApplication::processEvents();
     }
 }
 else{
-    for(int i=this->CurrentUser.allUIDLs.size();i>=1;i--){
-        Email e = this->CurrentUser.uidlEmial[this->CurrentUser.allUIDLs[this->CurrentUser.allUIDLs.size()-i]];
-        string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
-        cout<<s;
-        ui->listWidget->addItem(QString::fromStdString(s));
-        //ui->listWidget->update();
-        QApplication::processEvents();
-    }
+
 }
 
 }
