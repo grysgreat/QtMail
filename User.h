@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by HAN on 2022/3/9.
 //
 
@@ -106,7 +106,7 @@ public:
 
     void DeleteEmail(int id);
 
-    void AddEmailById(int i);
+    void AddEmailById(unsigned i);
 
     void refreshUIDLs();
 };

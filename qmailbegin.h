@@ -63,6 +63,10 @@ private slots:
     void on_pushButton_5_clicked();
    void initonesinfo();
    void on_listWidget_clicked(const QModelIndex &index);
+   void inituserfromjson();
+  void Emailstojson();
+   void refreshEmail();
+   void on_QMailbegin_destroyed();
 
 private:
     Ui::QMailbegin *ui;
