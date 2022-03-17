@@ -242,4 +242,6 @@ void QMailbegin::on_listWidget_clicked(const QModelIndex &index)
     this->CurrentUser.RetrEmail(sizeofemial-emailnumber-1);
     string s =  qApp->applicationDirPath().toStdString() +"/"+ CurrentUser.email+"/"+this->CurrentUser.allUIDLs[sizeofemial-emailnumber-1]+".html";
     QDesktopServices::openUrl(QUrl(QLatin1String(&s[0])));
+    s =  qApp->applicationDirPath().toStdString() +"/"+ CurrentUser.email+"/"+this->CurrentUser.allUIDLs[sizeofemial-emailnumber-1]+".plain";
+    QDesktopServices::openUrl(QUrl(QLatin1String(&s[0])));
 }
