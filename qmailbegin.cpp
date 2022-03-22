@@ -2,7 +2,6 @@
 #include "ui_qmailbegin.h"
 #include "QMovie"
 
-
 QMailbegin::QMailbegin(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::QMailbegin)
@@ -66,15 +65,10 @@ void QMailbegin::on_pushButton_4_clicked()
     m.exec();
 }
 
-
 void QMailbegin::on_pushButton_3_clicked()
 {
 ui->label->setVisible(true);
 ui->pushButton_3->setDisabled(true);
-
-
-
-
 //    QFuture<void> future = QtConcurrent::run(this,&QMailbegin::initonesinfo);
 //    while(!future.isFinished())
 //           {
@@ -95,8 +89,6 @@ ui->pushButton_3->setDisabled(true);
         ui->pushButton_3->setEnabled(true);
         Emailstojson();
         Toast::instance().show(1, "load the top of all eamils finished!");
-
-
 
 }
 
@@ -136,78 +128,36 @@ void QMailbegin::on_comboBox_currentIndexChanged(int index)
 
 }
 
-
 void QMailbegin::refreshuser(){
     ui->comboBox->clear();
-//    vector<User> tempall = User::getallUserfromConf();
-
-
-//     for(int i =0;i<(int)tempall.size();i++){
-//         bool isnew = true;
-//            for ( int j =0;j<(int)this->alluser.size();j++){
-//                if(tempall[i].email == this->alluser[j].email)
-//                    isnew = false;
-//            }
-//         if(isnew) this->alluser.push_back(tempall[i]);
-//     }
-
     this->alluser = User::getallUserfromConf();
     for(auto user:this->alluser){
         ui->comboBox->addItem(QString::fromStdString(user.email));
     }
-   // cout<<"endd!!!!!";
 }
 
 void QMailbegin::on_pushButton_5_clicked()
 {
     refreshuser();
 }
+
 void QMailbegin::rsetText(QListWidgetItem *item){
 
 
 }
+
 void QMailbegin::initonesinfo(){
-//    //this->CurrentUser.getallEmailinfo();//初始化用户邮件信息 即维护 邮件的vector与map
-//    int i=1;
-//    //该过程需要耗时较长 想办法进行多线程的转换
-//    ui->listWidget->setGridSize(QSize(335, 30));
-//    for(auto a: this->CurrentUser.allUIDLs){
-//      //  cout<<a<<endl;
-//        //cout<<this->CurrentUser.uidlEmial.size();
-//        cout<<"----------";
-//        Email e =this->CurrentUser.uidlEmial[a];
-//        cout<<e.UIDL<<endl;
-//        string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
 
-//        ui->listWidget->addItem(QString::fromStdString(s));
-//        i++;
-//    }
-if(this->CurrentUser.uidlEmial.size()<1){
-//    nlohmann::json all_email_json = nlohmann::json::array();
-//    this->CurrentUser.refreshUIDLs();
-//    for(int i=this->CurrentUser.allUIDLs.size();i>=1;i--){
-//        this->CurrentUser.AddEmailById(i);
-//        Email e = this->CurrentUser.uidlEmial[this->CurrentUser.allUIDLs[this->CurrentUser.allUIDLs.size()-i]];
-//         all_email_json.push_back(e.returnjson());
-//        string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
-//       // cout<<s;
-//        cout<<s<<endl;
-//        ui->listWidget->addItem(QString::fromUtf8(&s[0]));
-//        //ui->listWidget->update();
-//        QApplication::processEvents();
-//    }
-//        cout<<all_email_json<<endl;
-
-//        emailjson<<all_email_json;
-//        emailjson.close();
-
+    if(this->CurrentUser.uidlEmial.size()<1){
      /// 通过已经存储的文件来初始化邮件
     nlohmann::json all_email_json ;
     string jsonpath = this->CurrentUser.email+"/allemail.json";
     this->CurrentUser.refreshUIDLs();
     ifstream inins(jsonpath,ios::in);
+    if(!inins) return ;//如果打开失败则推出
+    // TODO: 这里或许应该添加exception 
     inins>>all_email_json;
-    int i=1;
+    int i=all_email_json.size();
     for (auto& element : all_email_json) {
        Email e(element);
             string s = to_string (i) +e.UIDL+"||" + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject  ;
@@ -215,7 +165,7 @@ if(this->CurrentUser.uidlEmial.size()<1){
               cout<<s<<endl;
              ui->listWidget->addItem(QString::fromUtf8(&s[0]));
        this->CurrentUser.uidlEmial[e.UIDL] =e;
-       i++;
+       i--;
     }
     inins.close();
 
@@ -240,8 +190,6 @@ void QMailbegin::on_listWidget_clicked(const QModelIndex &index)
 
 
 
-
-
 /**
  * @brief QMailbegin::inituserfromjson
  * 从 json文件中读取emial信息
@@ -261,13 +209,13 @@ void QMailbegin::inituserfromjson(){
         return ;
     }
 
-    int i=1;
+    int i=all_email_json.size();
     for (auto& element : all_email_json) {
        Email e(element);
              string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
              ui->listWidget->addItem(QString::fromUtf8(&s[0]));
        this->CurrentUser.uidlEmial[e.UIDL] =e;
-       i++;
+       i--;
     }
 
 }

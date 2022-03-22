@@ -28,6 +28,12 @@ POP3Connector::	POP3Connector(string emailAddress, string password) :TCPConnecto
 
 
 //closetodo: 针对user中数据结构的更改需要进行更新  遍历top 并进行更新
+/**
+ * @brief 返回所有的emial
+ * 
+ * @param count 
+ * @return vector<Email> 最新的最小
+ */
 vector<Email> POP3Connector::List(int count ) {
     vector<Email> allEmail;
   //  vector <string> emailuidl;
@@ -74,6 +80,13 @@ vector<Email> POP3Connector::List(int count ) {
 
 		return allEmail;
 	}
+    /**
+     * @brief 接受第id号邮件
+     * 最新的最大
+     * 
+     * @param id 
+     * @param UIDL 
+     */
 void POP3Connector::Retr(int id,string UIDL) {
 		char buf[20];
 		sprintf(buf, "%d", id);
@@ -98,7 +111,7 @@ POP3Connector::~POP3Connector() {
 
 
 /**
- * 删除i号邮件
+ * 删除i号邮件 最新的最大
  * @param id
  */
 void POP3Connector::Delt(int id) {
@@ -164,7 +177,12 @@ vector<string> POP3Connector::getallUIDL() {
 
     return emailuidl;
 }
-
+/**
+ * @brief 返回所有的uidl
+ *  其中从0开始 越新的越大
+ * 
+ * @return vector<string> 
+ */
 vector<string> POP3Connector::getallUIDL2(){
     vector <string> emailuidl;
     if (Send("stat\r\n")) {

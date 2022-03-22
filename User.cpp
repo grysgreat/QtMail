@@ -3,12 +3,12 @@
 //
 #include "User.h"
 bool isinit = false;
-
+/// 空构造
 User::User(){
     this->email ="emails";
     this->password ="passwords";
 }
-
+/// 验证构造
 User::User(string emails, string passwords,bool init) {
     try {
         POP3Connector(emails, passwords);
@@ -27,7 +27,7 @@ User::User(string emails, string passwords,bool init) {
     system(p);
 
 }
-
+/// 给定参数构造
 User::User(string emails, string passwords){
     this->email = emails;
     this->password =passwords;
@@ -67,10 +67,14 @@ User::~User() {
   // WSACleanup();
 }
 
+/**
+ * @brief 获取所有邮件信息
+ * 
+ */
 void User::getallEmailinfo() {
     POP3Connector pop3(this->email, this->password);
-    this->emailist =  pop3.List(-1);
-    this->allUIDLs = pop3.getallUIDL();
+    this->emailist =  pop3.List(-1);  //最新的最小
+    this->allUIDLs = pop3.getallUIDL();//最新的最大
     int email_number  = emailist.size();
     for (int i = 0; i <email_number; ++i) {
         //this->Emailid[emailist[i].UIDL] = (email_number-i);
@@ -79,7 +83,12 @@ void User::getallEmailinfo() {
     }
 }
 
-
+/**
+ * @brief 刷新所有邮件
+ * 
+ * @return true  有邮件刷新
+ * @return false 
+ */
 bool User::refreshemail() {
     bool is_new = false;
     POP3Connector pop3(this->email, this->password);
@@ -98,7 +107,11 @@ bool User::refreshemail() {
     }
     return is_new;
 }
-
+/**
+ * @brief 根据id接受emial 最新的号最大
+ * 
+ * @param id  从零开始
+ */
 void User::RetrEmail(int id) {
 
         try{
@@ -146,7 +159,11 @@ void User::SendEmail(string subject,const string& emialName,string contextpath,s
    else printf("send success!\n");
 
 }
-
+/**
+ * @brief 根据id删除函数
+ * 
+ * @param id 
+ */
 void User::DeleteEmail(int id) {
     try {
         POP3Connector pop3(this->email, this->password);
@@ -156,13 +173,23 @@ void User::DeleteEmail(int id) {
     }
 }
 
+/**
+ * @brief 根据id刷新邮件信息
+ * 
+ * @param i 
+ */
 void User::AddEmailById(unsigned int  i){
     POP3Connector pop3(this->email, this->password);
     Email tmp = pop3.getEmailByTop(i);
 
-    tmp.UIDL = this->allUIDLs[this->allUIDLs.size()-i];
+    tmp.UIDL = this->allUIDLs[i-1];
     this->uidlEmial[tmp.UIDL] = tmp;
 }
+
+/**
+ * @brief 刷新所有的uidl
+ * 
+ */
 void User::refreshUIDLs(){
     POP3Connector pop3(this->email, this->password);
     this->allUIDLs = pop3.getallUIDL2();
