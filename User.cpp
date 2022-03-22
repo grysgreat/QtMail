@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by HAN on 2022/3/10.
 //
 #include "User.h"
@@ -156,7 +156,7 @@ void User::DeleteEmail(int id) {
     }
 }
 
-void User::AddEmailById(int i){
+void User::AddEmailById(unsigned int  i){
     POP3Connector pop3(this->email, this->password);
     Email tmp = pop3.getEmailByTop(i);
 

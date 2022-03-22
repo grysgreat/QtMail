@@ -1,4 +1,4 @@
-#ifndef QMAILBEGIN_H
+﻿#ifndef QMAILBEGIN_H
 #define QMAILBEGIN_H
 
 #include <QDialog>
@@ -22,6 +22,11 @@
 #include <QListWidgetItem>
 #include <QListWidget>
 #include <QLabel>
+#include"json.hpp"
+
+#include <fstream>
+
+
 namespace Ui {
 class QMailbegin;
 }
@@ -58,6 +63,10 @@ private slots:
     void on_pushButton_5_clicked();
    void initonesinfo();
    void on_listWidget_clicked(const QModelIndex &index);
+   void inituserfromjson();
+  void Emailstojson();
+   void refreshEmail();
+   void on_QMailbegin_destroyed();
 
 private:
     Ui::QMailbegin *ui;

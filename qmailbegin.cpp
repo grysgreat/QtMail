@@ -1,6 +1,8 @@
 ﻿#include "qmailbegin.h"
 #include "ui_qmailbegin.h"
 #include "QMovie"
+
+
 QMailbegin::QMailbegin(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::QMailbegin)
@@ -27,9 +29,12 @@ QMailbegin::QMailbegin(QWidget *parent) :
         //cout<<"there is no user ";
         Toast::instance().show(1,"there is no user,please input first");
     }//如果不存在已经注册过的用户  则想办法进行响应提示
-    else {// 如果有用户  则将首个用户作为当前用户进行响应操作
+    else {
+        // 如果有用户  则将首个用户作为当前用户进行响应操作
         this->CurrentUser = alluser[0];
-        //this->currentuser = &alluser[0];
+        // 从文件中读取信息
+        inituserfromjson();
+
     }
     for(auto user:this->alluser){
         ui->comboBox->addItem(QString::fromStdString(user.email));
@@ -39,7 +44,8 @@ QMailbegin::QMailbegin(QWidget *parent) :
     ui->label->setMovie(movie);
     movie->start();
 
-  //connect(&BindNewuser,&infrom::destroyed,this,SLOT(refreshuser()));
+
+
 
 }
 
@@ -83,8 +89,8 @@ ui->pushButton_3->setDisabled(true);
 //        Toast::instance().show(1, "load the top of all eamils finished!");
 //    }
 
-        initonesinfo();
-
+       // initonesinfo();
+        refreshEmail();
         ui->label->setVisible(false);
         ui->pushButton_3->setEnabled(true);
         Toast::instance().show(1, "load the top of all eamils finished!");
@@ -108,34 +114,24 @@ void QMailbegin::on_comboBox_activated(const QString &arg1)
 
 void QMailbegin::on_comboBox_currentIndexChanged(int index)
 {
-if(index >= 0 && index < alluser.size()){
-cout<< "change user "<< index<<endl;
-    for(int i =0;i < this->alluser.size();i++){
-        if(this->alluser[i].email == CurrentUser.email){
-            alluser[i] = CurrentUser;
-            break;
+    /// 转换前先固化
+
+    unsigned int usernumber = alluser.size();
+    if(index >= 0 && index < usernumber){
+
+        cout<< "change user "<< index<<endl;
+        for(unsigned int i =0;i < usernumber;i++){
+            if(this->alluser[i].email == CurrentUser.email){
+                alluser[i] = CurrentUser;
+                 Emailstojson();
+                break;
         }
 
+        }
+        this->CurrentUser=this->alluser[index];
+        ui->listWidget->clear();
+        inituserfromjson();
     }
-
-
-    this->CurrentUser=this->alluser[index];
-    ui->listWidget->clear();
-    //initonesinfo();
-
-       if( this->CurrentUser.uidlEmial.size()>1){
-           cout<<"is not new "<<endl;
-           for(int i=this->CurrentUser.allUIDLs.size();i>=1;i--){
-               Email e = this->CurrentUser.uidlEmial[this->CurrentUser.allUIDLs[this->CurrentUser.allUIDLs.size()-i]];
-               string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
-              // cout<<s;
-               //ui->listWidget->addItem(QString::fromStdString(s));
-               ui->listWidget->addItem(QString::fromUtf8(&s[0]));
-               //ui->listWidget->update();
-               QApplication::processEvents();
-           }
-       }
-}
 
 }
 
@@ -186,18 +182,42 @@ void QMailbegin::initonesinfo(){
 //        i++;
 //    }
 if(this->CurrentUser.uidlEmial.size()<1){
+//    nlohmann::json all_email_json = nlohmann::json::array();
+//    this->CurrentUser.refreshUIDLs();
+//    for(int i=this->CurrentUser.allUIDLs.size();i>=1;i--){
+//        this->CurrentUser.AddEmailById(i);
+//        Email e = this->CurrentUser.uidlEmial[this->CurrentUser.allUIDLs[this->CurrentUser.allUIDLs.size()-i]];
+//         all_email_json.push_back(e.returnjson());
+//        string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
+//       // cout<<s;
+//        cout<<s<<endl;
+//        ui->listWidget->addItem(QString::fromUtf8(&s[0]));
+//        //ui->listWidget->update();
+//        QApplication::processEvents();
+//    }
+//        cout<<all_email_json<<endl;
 
+//        emailjson<<all_email_json;
+//        emailjson.close();
+
+     /// 通过已经存储的文件来初始化邮件
+    nlohmann::json all_email_json ;
+    string jsonpath = this->CurrentUser.email+"/allemail.json";
     this->CurrentUser.refreshUIDLs();
-    for(int i=this->CurrentUser.allUIDLs.size();i>=1;i--){
-        this->CurrentUser.AddEmailById(i);
-        Email e = this->CurrentUser.uidlEmial[this->CurrentUser.allUIDLs[this->CurrentUser.allUIDLs.size()-i]];
-        string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
-       // cout<<s;
-        cout<<s<<endl;
-        ui->listWidget->addItem(QString::fromUtf8(&s[0]));
-        //ui->listWidget->update();
-        QApplication::processEvents();
+    ifstream inins(jsonpath,ios::in);
+    inins>>all_email_json;
+    int i=1;
+    for (auto& element : all_email_json) {
+       Email e(element);
+              string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
+       //       // cout<<s;
+              cout<<s<<endl;
+             ui->listWidget->addItem(QString::fromUtf8(&s[0]));
+       this->CurrentUser.uidlEmial[e.UIDL] =e;
+       i++;
     }
+    inins.close();
+
 }
 else{
 
@@ -212,4 +232,105 @@ void QMailbegin::on_listWidget_clicked(const QModelIndex &index)
     this->CurrentUser.RetrEmail(sizeofemial-emailnumber-1);
     string s =  qApp->applicationDirPath().toStdString() +"/"+ CurrentUser.email+"/"+this->CurrentUser.allUIDLs[sizeofemial-emailnumber-1]+".html";
     QDesktopServices::openUrl(QUrl(QLatin1String(&s[0])));
+    s =  qApp->applicationDirPath().toStdString() +"/"+ CurrentUser.email+"/"+this->CurrentUser.allUIDLs[sizeofemial-emailnumber-1]+".plain";
+    QDesktopServices::openUrl(QUrl(QLatin1String(&s[0])));
+}
+
+
+
+
+
+
+/**
+ * @brief QMailbegin::inituserfromjson
+ * 从 json文件中读取emial信息
+ */
+void QMailbegin::inituserfromjson(){
+    nlohmann::json all_email_json ;
+    if(this->CurrentUser.email.size()<1) return ;/// 当用户不存在时不应该执行该函数
+
+    string jsonpath = this->CurrentUser.email+"/allemail.json";
+    this->CurrentUser.refreshUIDLs();
+    ifstream inins(jsonpath,ios::in);
+    if(inins){
+        inins>>all_email_json;
+        inins.close();
+    }else {
+        cout<<"there is no json of emails for currentuser"<<endl;
+        return ;
+    }
+
+    int i=1;
+    for (auto& element : all_email_json) {
+       Email e(element);
+             string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
+             ui->listWidget->addItem(QString::fromUtf8(&s[0]));
+       this->CurrentUser.uidlEmial[e.UIDL] =e;
+       i++;
+    }
+
+}
+
+
+
+
+
+
+/**
+ * @brief QMailbegin::Emailstojson
+ *  将已有邮箱信息固化为json文件
+ */
+void QMailbegin::Emailstojson(){
+     if(this->CurrentUser.email.size()<1) return ;/// 当用户不存在时不应该执行该函数
+
+
+         nlohmann::json all_email_json = nlohmann::json::array();
+
+         for(int i=this->CurrentUser.allUIDLs.size();i>=1;i--){
+              string UIDL = this->CurrentUser.allUIDLs[this->CurrentUser.allUIDLs.size()-i];
+              Email e = this->CurrentUser.uidlEmial[UIDL];
+              all_email_json.push_back(e.returnjson());/// 将emial转化为json放入总json
+         }
+
+            string jsonpath = this->CurrentUser.email+"/allemail.json";
+            ofstream emailjson(jsonpath);
+            emailjson<<all_email_json;
+            emailjson.close();
+
+}
+
+
+void QMailbegin::refreshEmail(){
+
+        this->CurrentUser.refreshUIDLs();
+        for(auto i=this->CurrentUser.allUIDLs.size();i>=1;i--){
+            string UIDL = this->CurrentUser.allUIDLs[this->CurrentUser.allUIDLs.size()-i];
+            if( this->CurrentUser.uidlEmial.find(UIDL)
+                 ==this->CurrentUser.uidlEmial.end() ){ // 从没在map中存在过
+            this->CurrentUser.AddEmailById(i);
+            Email e = this->CurrentUser.uidlEmial[UIDL];
+
+            string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
+            cout<<s<<endl;
+            ui->listWidget->insertItem(0,QString::fromUtf8(&s[0]));
+
+            QApplication::processEvents();
+            }
+        }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+void QMailbegin::on_QMailbegin_destroyed()
+{
+    Emailstojson();
 }

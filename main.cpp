@@ -1,7 +1,7 @@
 ﻿
 #include <QApplication>
-#include "Qmailbegin.h"
- #include <QTextCodec>
+#include "qmailbegin.h"
+#include <QTextCodec>
 
 int main(int argc, char *argv[])
 {
@@ -21,8 +21,8 @@ int main(int argc, char *argv[])
      QTextCodec::setCodecForCStrings(codec);
      QTextCodec::setCodecForTr(codec);
  #else
-     //QTextCodec *codec = QTextCodec::codecForName("utf-8");
-     QTextCodec *codec = QTextCodec::codecForName("GBK");
+     QTextCodec *codec = QTextCodec::codecForName("utf-8");
+     //QTextCodec *codec = QTextCodec::codecForName("GBK");
      QTextCodec::setCodecForLocale(codec);
  #endif
 

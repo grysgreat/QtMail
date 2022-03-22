@@ -1,4 +1,4 @@
-#include "util.h"
+﻿#include "util.h"
 #include "Email.h"
 
 #include <utility>
@@ -81,3 +81,18 @@ Email &Email::SetUIDL(string uidl) {
     this->UIDL = uidl;
 }
 
+json Email::returnjson(){
+    json rejson ;
+    rejson["uidl"] = string_To_UTF8(this->UIDL);
+    rejson["subject"] = string_To_UTF8(this->subject);
+    rejson["from"] = string_To_UTF8(this->from);
+    rejson["date"] =string_To_UTF8(this->date);
+    return rejson;
+
+}
+Email::Email(json rejson){
+    this->UIDL = UTF8_To_string( rejson["uidl"]);
+    this->subject = UTF8_To_string( rejson["subject"]);
+    this->from=UTF8_To_string(  rejson["from"] );
+    this->date= UTF8_To_string(  rejson["date"]);
+}

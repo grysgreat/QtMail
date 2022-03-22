@@ -1,4 +1,4 @@
-#ifndef MAIL_H
+﻿#ifndef MAIL_H
 #define MAIL_H
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
@@ -8,6 +8,9 @@
 #include<Windows.h>
 #include "MIMEContent.h"
 #include <regex>
+#include "json.hpp"
+using json = nlohmann::json;
+
 using namespace std;
 
 
@@ -25,6 +28,7 @@ public:
 	Email(){
 	    content = NULL;
 	}
+    Email(json e);
 	/**
 	 * 在Email类中填充
 	 * @param s
@@ -41,6 +45,8 @@ public:
     Email& SetMIMEContent(MIMEContent* cont) ;
     string BuidEmailString() ;
     Email& FillTopInfoRude(const string &s);
+    json returnjson();
+
 
 };
 
