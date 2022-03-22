@@ -281,7 +281,7 @@ void QMailbegin::inituserfromjson(){
  *  将已有邮箱信息固化为json文件
  */
 void QMailbegin::Emailstojson(){
-     if(this->CurrentUser.email.size()<1) return ;/// 当用户不存在时不应该执行该函数
+     if(this->CurrentUser.uidlEmial.size()<1) return ;/// 当用户不存在时不应该执行该函数
 
 
          nlohmann::json all_email_json = nlohmann::json::array();
