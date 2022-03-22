@@ -24,6 +24,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    emailWgt.cpp \
         main.cpp \
         mainwindow.cpp \
     infrom.cpp \
@@ -40,7 +41,8 @@ TCPConnector.cpp\
 User.cpp \
     qmailbegin.cpp
 HEADERS += \
-        mainwindow.h \
+    emialWgt.h \
+       mainwindow.h \
     infrom.h \
     checkmail.h \
     sendmail.h\
@@ -58,7 +60,7 @@ HEADERS += \
 
 
 FORMS += \
-    listweidge.ui \
+    emailWgt.ui \
         mainwindow.ui \
     infrom.ui \
     checkmail.ui \

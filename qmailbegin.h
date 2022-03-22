@@ -25,6 +25,7 @@
 #include"json.hpp"
 
 #include <fstream>
+#include "emialWgt.h"
 
 
 namespace Ui {

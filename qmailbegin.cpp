@@ -15,7 +15,7 @@ QMailbegin::QMailbegin(QWidget *parent) :
 
     ui->setupUi(this);
 
-
+    ui->listWidget->setGridSize(QSize(335, 50));
     ui->label->setVisible(false);
     QMovie * move = new QMovie(":/loading.gif");
         ui->label->setMovie(move);
@@ -148,6 +148,7 @@ void QMailbegin::refreshuser(){
 void QMailbegin::on_pushButton_5_clicked()
 {
     refreshuser();
+
 }
 
 void QMailbegin::rsetText(QListWidgetItem *item){
@@ -268,14 +269,29 @@ void QMailbegin::refreshEmail(){
                  ==this->CurrentUser.uidlEmial.end() ){ // 从没在map中存在过
                     this->CurrentUser.AddEmailById(i);
             }
+
+
+
             Email e = this->CurrentUser.uidlEmial[UIDL];
+             QListWidgetItem * newItem =new QListWidgetItem();
+             //newItem->setSizeHint(QSize(210,220));
+             this->ui->listWidget->addItem(newItem);
+             emailWgt * emailwgt  = new emailWgt(e);
 
-            string s = to_string (i) +"||" + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject  ;
 
-            ui->listWidget->addItem(QString::fromUtf8(&s[0]));
+            ui->listWidget->setItemWidget(newItem,emailwgt);
+            //TODO: 要想对其进行进一步的管理，需要创建一个emailWgt指针的列表来存储
+            // o 好像又不是这样的
+            //https://blog.csdn.net/lion_cxq/article/details/115101356
+            //https://blog.csdn.net/qq_31073871/article/details/90272780
+            // 好吧可能要考虑换tablelist了
+
+
 
             QApplication::processEvents();
-            }
+
+
+        }
 
 
 }
