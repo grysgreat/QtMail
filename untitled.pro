@@ -58,6 +58,7 @@ HEADERS += \
 
 
 FORMS += \
+    listweidge.ui \
         mainwindow.ui \
     infrom.ui \
     checkmail.ui \

@@ -221,12 +221,12 @@ void QMailbegin::inituserfromjson(){
     int i=all_email_json.size();
     for (auto& element : all_email_json) {
        Email e(element);
-             string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
-             ui->listWidget->addItem(QString::fromUtf8(&s[0]));
+             //string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
+             //ui->listWidget->addItem(QString::fromUtf8(&s[0]));
        this->CurrentUser.uidlEmial[e.UIDL] =e;
        i--;
     }
-
+    refreshEmail();
 }
 
 
@@ -270,8 +270,8 @@ void QMailbegin::refreshEmail(){
             }
             Email e = this->CurrentUser.uidlEmial[UIDL];
 
-            string s = to_string (i) +e.UIDL+"||" + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject  ;
-            cout<<s<<endl;
+            string s = to_string (i) +"||" + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject  ;
+
             ui->listWidget->addItem(QString::fromUtf8(&s[0]));
 
             QApplication::processEvents();
