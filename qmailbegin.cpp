@@ -6,7 +6,16 @@ QMailbegin::QMailbegin(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::QMailbegin)
 {
+    ///
+    Qt::WindowFlags windowFlag  = Qt::Dialog;
+    windowFlag                  |= Qt::WindowMinimizeButtonHint;
+    windowFlag                  |= Qt::WindowMaximizeButtonHint;
+    windowFlag                  |= Qt::WindowCloseButtonHint;
+    setWindowFlags(windowFlag);
+
     ui->setupUi(this);
+
+
     ui->label->setVisible(false);
     QMovie * move = new QMovie(":/loading.gif");
         ui->label->setMovie(move);
