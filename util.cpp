@@ -255,14 +255,17 @@ bool DeQuoPri(const string& _src, string filename) {
 string GetStringFromFile(string charset) {
     string ret = "";
     if ( charset=="utf-8") {
-        //temp code by utf-8
-        FILE* fp = _wfopen(L"temp", L"r,ccs=utf-8");
-        wchar_t buf[1500];
-        if (fp != NULL) fwscanf(fp, L"%s", buf);
+        FILE* fp = fopen("temp", "rb");
+        char buf[3000];
+        if (fp) {
+            fseek(fp, 0, SEEK_END);
+            int size = ftell(fp);
+            fseek(fp, 0, SEEK_SET);
+            fread(buf, 1, size, fp);
+            buf[size] = '\0';
+        }
         fclose(fp);
-        char mbBuf[3000];
-        WideCharToMultiByte(CP_ACP, 0, buf, -1, mbBuf, 300, "#", 0);
-        ret = string(mbBuf);
+        ret = string(buf);
     }
     else {
         FILE* fp = fopen("temp", "rb");
