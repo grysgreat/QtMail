@@ -93,6 +93,7 @@ ui->pushButton_3->setDisabled(true);
         refreshEmail();
         ui->label->setVisible(false);
         ui->pushButton_3->setEnabled(true);
+        Emailstojson();
         Toast::instance().show(1, "load the top of all eamils finished!");
 
 
@@ -209,7 +210,7 @@ if(this->CurrentUser.uidlEmial.size()<1){
     int i=1;
     for (auto& element : all_email_json) {
        Email e(element);
-              string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
+            string s = to_string (i) +e.UIDL+"||" + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject  ;
        //       // cout<<s;
               cout<<s<<endl;
              ui->listWidget->addItem(QString::fromUtf8(&s[0]));
@@ -303,20 +304,22 @@ void QMailbegin::Emailstojson(){
 void QMailbegin::refreshEmail(){
 
         this->CurrentUser.refreshUIDLs();
+        ui->listWidget->clear();
         for(auto i=this->CurrentUser.allUIDLs.size();i>=1;i--){
-            string UIDL = this->CurrentUser.allUIDLs[this->CurrentUser.allUIDLs.size()-i];
+            string UIDL = this->CurrentUser.allUIDLs[i-1];
             if( this->CurrentUser.uidlEmial.find(UIDL)
                  ==this->CurrentUser.uidlEmial.end() ){ // 从没在map中存在过
-            this->CurrentUser.AddEmailById(i);
+                    this->CurrentUser.AddEmailById(i);
+            }
             Email e = this->CurrentUser.uidlEmial[UIDL];
 
-            string s = to_string (i)  + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject ;
+            string s = to_string (i) +e.UIDL+"||" + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject  ;
             cout<<s<<endl;
-            ui->listWidget->insertItem(0,QString::fromUtf8(&s[0]));
+            ui->listWidget->addItem(QString::fromUtf8(&s[0]));
 
             QApplication::processEvents();
             }
-        }
+
 
 }
 
