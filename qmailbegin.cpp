@@ -144,7 +144,8 @@ void QMailbegin::refreshuser(){
         ui->comboBox->addItem(QString::fromStdString(user.email));
     }
 }
-
+// 该函数执行前需要确保完全的刷新成功
+// 目前还是仅支持单次仅删除一个吧
 void QMailbegin::on_pushButton_5_clicked()
 {
     cout<<"deleting..."<<endl;
@@ -160,11 +161,12 @@ void QMailbegin::on_pushButton_5_clicked()
                 //TODO: 删除选中的邮件
                 //ui->listWidget->takeItem(i);
                 // 不能这么直接删  做了一次删除后会立刻生效 则顺序乱了了
+                this->CurrentUser.DeleteEmail(this->CurrentUser.allUIDLs.size()-i);
+                break;
 
-                cout<<i<<endl;
             }
         }
-
+refreshEmail();
     return ;
 
 }

@@ -1,4 +1,4 @@
-
+﻿
 
 #ifndef _POP3CONNTEROR_
 #define _POP3CONNTEROR_
@@ -23,6 +23,7 @@ public:
 	Email getEmailByTop(int id);
     void Delt(int id);
 	~POP3Connector();
+    void Quit();
     vector<string> getallUIDL2();
 };
 #endif
