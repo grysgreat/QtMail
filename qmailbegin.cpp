@@ -147,7 +147,25 @@ void QMailbegin::refreshuser(){
 
 void QMailbegin::on_pushButton_5_clicked()
 {
-    refreshuser();
+    cout<<"deleting..."<<endl;
+  //删除选中checkbox
+    for(int i = 0; i < ui->listWidget->count(); i++)
+        {
+
+            QListWidgetItem *item = ui->listWidget->item(i);
+            //将QWidget 转化为QCheckBox  获取第i个item 的控件
+            emailWgt *emailWgt = static_cast<class emailWgt *>(ui->listWidget->itemWidget(item));
+            if(emailWgt->isCheck())
+            {
+                //TODO: 删除选中的邮件
+                //ui->listWidget->takeItem(i);
+                // 不能这么直接删  做了一次删除后会立刻生效 则顺序乱了了
+
+                cout<<i<<endl;
+            }
+        }
+
+    return ;
 
 }
 
@@ -274,17 +292,18 @@ void QMailbegin::refreshEmail(){
 
             Email e = this->CurrentUser.uidlEmial[UIDL];
              QListWidgetItem * newItem =new QListWidgetItem();
-             //newItem->setSizeHint(QSize(210,220));
+             newItem->setSizeHint(QSize(210,220));
              this->ui->listWidget->addItem(newItem);
              emailWgt * emailwgt  = new emailWgt(e);
-
-
             ui->listWidget->setItemWidget(newItem,emailwgt);
             //TODO: 要想对其进行进一步的管理，需要创建一个emailWgt指针的列表来存储
             // o 好像又不是这样的
             //https://blog.csdn.net/lion_cxq/article/details/115101356
             //https://blog.csdn.net/qq_31073871/article/details/90272780
             // 好吧可能要考虑换tablelist了
+
+            //现在尝试connect
+            //connect(emailwgt,SIGNAL(on_checkBox_stateChanged(int)),this,SLOT(checkboxStateChanged(int)));
 
 
 

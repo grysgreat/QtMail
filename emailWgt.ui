@@ -25,12 +25,12 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1201</width>
+     <width>1621</width>
      <height>61</height>
     </rect>
    </property>
@@ -46,12 +46,21 @@
       <property name="sizeType">
        <enum>QSizePolicy::Fixed</enum>
       </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
      </spacer>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <property name="spacing">
        <number>0</number>
+      </property>
+      <property name="sizeConstraint">
+       <enum>QLayout::SetMaximumSize</enum>
       </property>
       <item>
        <spacer name="horizontalSpacer">
@@ -84,18 +93,27 @@
         <property name="sizeType">
          <enum>QSizePolicy::Fixed</enum>
         </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
        </spacer>
       </item>
       <item>
        <widget class="QLabel" name="label">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>17</horstretch>
-          <verstretch>2</verstretch>
+          <verstretch>1</verstretch>
          </sizepolicy>
         </property>
         <property name="text">
          <string/>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse</set>
         </property>
        </widget>
       </item>
@@ -124,6 +142,12 @@
       </property>
       <property name="sizeType">
        <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
       </property>
      </spacer>
     </item>

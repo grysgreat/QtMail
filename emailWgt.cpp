@@ -21,3 +21,7 @@ emailWgt::~emailWgt()
 {
     delete ui;
 }
+
+bool emailWgt::isCheck(){
+    return ui->checkBox->isChecked();
+}

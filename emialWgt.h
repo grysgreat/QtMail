@@ -20,6 +20,7 @@ public:
     explicit emailWgt(QWidget *parent = 0);
     emailWgt(Email e,QWidget *parent = 0);
     ~emailWgt();
+    bool isCheck();
 
 private:
     Ui::emailWgt *ui;
