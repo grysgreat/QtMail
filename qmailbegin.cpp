@@ -296,18 +296,10 @@ void QMailbegin::refreshEmail(){
              QListWidgetItem * newItem =new QListWidgetItem();
              newItem->setSizeHint(QSize(210,220));
              this->ui->listWidget->addItem(newItem);
-             emailWgt * emailwgt  = new emailWgt(e);
+             emailWgt * emailwgt  = new emailWgt(this->CurrentUser.allUIDLs.size()-i,e);
             ui->listWidget->setItemWidget(newItem,emailwgt);
-            //TODO: 要想对其进行进一步的管理，需要创建一个emailWgt指针的列表来存储
-            // o 好像又不是这样的
-            //https://blog.csdn.net/lion_cxq/article/details/115101356
-            //https://blog.csdn.net/qq_31073871/article/details/90272780
-            // 好吧可能要考虑换tablelist了
 
-            //现在尝试connect
-            //connect(emailwgt,SIGNAL(on_checkBox_stateChanged(int)),this,SLOT(checkboxStateChanged(int)));
-
-
+           connect(emailwgt,SIGNAL(chagestar(int )),this,SLOT(emailstarchange(int)));
 
             QApplication::processEvents();
 
@@ -321,10 +313,13 @@ void QMailbegin::refreshEmail(){
 
 
 
+void QMailbegin::emailstarchange(int id){
 
+this->CurrentUser.uidlEmial[ this->CurrentUser.allUIDLs[   this->CurrentUser.allUIDLs.size()-id-1]].star  =
+  !this->CurrentUser.uidlEmial[ this->CurrentUser.allUIDLs[   this->CurrentUser.allUIDLs.size()-id-1]].star ;
 
-
-
+return ;
+}
 
 
 void QMailbegin::on_QMailbegin_destroyed()

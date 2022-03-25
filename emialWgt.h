@@ -15,12 +15,17 @@ class emailWgt;
 class emailWgt : public QWidget
 {
     Q_OBJECT
-
+    int id;
 public:
-    explicit emailWgt(QWidget *parent = 0);
-    emailWgt(Email e,QWidget *parent = 0);
+    explicit emailWgt(QWidget *parent = nullptr);
+    emailWgt(int ids,Email e,QWidget *parent = nullptr);
     ~emailWgt();
     bool isCheck();
+signals:
+    void chagestar(int);
+
+private slots:
+    void on_pushButton_star_clicked();
 
 private:
     Ui::emailWgt *ui;

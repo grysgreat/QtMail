@@ -68,6 +68,7 @@ private slots:
   void Emailstojson();
    void refreshEmail();
    void on_QMailbegin_destroyed();
+   void emailstarchange(int);
 
 private:
     Ui::QMailbegin *ui;

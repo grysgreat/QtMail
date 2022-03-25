@@ -7,6 +7,7 @@
 using namespace std;
 
 Email& Email::FillTopInfo(const string & s) {
+    this->star = false;
 		this->topStr = s;
 		this->from = ParseString(GetValueByKey(s, "\nFrom"));
 		this->to = ParseString(GetValueByKey(s, "\nTo"));
@@ -87,6 +88,7 @@ json Email::returnjson(){
     rejson["subject"] = string_To_UTF8(this->subject);
     rejson["from"] = string_To_UTF8(this->from);
     rejson["date"] =string_To_UTF8(this->date);
+    rejson["star"] = this->star;
     return rejson;
 
 }
@@ -95,4 +97,5 @@ Email::Email(json rejson){
     this->subject = UTF8_To_string( rejson["subject"]);
     this->from=UTF8_To_string(  rejson["from"] );
     this->date= UTF8_To_string(  rejson["date"]);
+    this->star = rejson["star"];
 }
