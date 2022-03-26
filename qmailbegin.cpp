@@ -326,3 +326,9 @@ void QMailbegin::on_QMailbegin_destroyed()
 {
     Emailstojson();
 }
+
+void QMailbegin::on_pushButton_6_clicked()
+{
+    HELP help;
+    help.exec();
+}

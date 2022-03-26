@@ -291,6 +291,13 @@
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_6">
+             <property name="text">
+              <string>help</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
          <item>

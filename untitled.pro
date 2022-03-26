@@ -25,6 +25,7 @@ CONFIG += c++11
 
 SOURCES += \
     emailWgt.cpp \
+    help.cpp \
         main.cpp \
         mainwindow.cpp \
     infrom.cpp \
@@ -42,6 +43,7 @@ User.cpp \
     qmailbegin.cpp
 HEADERS += \
     emialWgt.h \
+    help.h \
        mainwindow.h \
     infrom.h \
     checkmail.h \
@@ -61,6 +63,7 @@ HEADERS += \
 
 FORMS += \
     emailWgt.ui \
+    help.ui \
         mainwindow.ui \
     infrom.ui \
     checkmail.ui \
