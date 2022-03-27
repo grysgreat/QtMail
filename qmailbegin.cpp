@@ -332,3 +332,8 @@ void QMailbegin::on_pushButton_6_clicked()
     HELP help;
     help.exec();
 }
+
+void QMailbegin::on_pushButton_7_clicked()
+{
+
+}

@@ -286,8 +286,11 @@
                <verstretch>1</verstretch>
               </sizepolicy>
              </property>
+             <property name="styleSheet">
+              <string notr="true">border-image: url(:/pics/delete.png);</string>
+             </property>
              <property name="text">
-              <string>删除邮件</string>
+              <string/>
              </property>
             </widget>
            </item>
@@ -312,8 +315,11 @@
                <verstretch>1</verstretch>
               </sizepolicy>
              </property>
+             <property name="styleSheet">
+              <string notr="true">border-image: url(:/pics/help.png);</string>
+             </property>
              <property name="text">
-              <string>help</string>
+              <string/>
              </property>
             </widget>
            </item>

@@ -14,9 +14,13 @@ emailWgt::emailWgt( int ids,Email e,QWidget *parent ):
 {
     this->id =ids;
     ui->setupUi(this);
-    string s = "from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject  ;
+    string s1 = "from:" + e.from  ;
+    string s2 = "    date:" + e.date ;
+    string s3 = "    sub: " + e.subject  ;
     ///TODO： 这里研究下格式化的问题
-    ui->label->setText(QString::fromUtf8(&s[0]));
+    ui->label->setText(QString::fromUtf8(&s2[0]));
+    ui->label_4->setText(QString::fromUtf8(&s3[0]));
+    ui->label_5->setText(QString::fromUtf8(&s1[0]));
     if(e.star){
         ui->pushButton_star->setText("★");
     }else {

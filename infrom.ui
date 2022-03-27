@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>244</width>
-    <height>178</height>
+    <width>350</width>
+    <height>175</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,7 +22,7 @@ border-image: url(:/pics/bkd.png);</string>
     <rect>
      <x>80</x>
      <y>20</y>
-     <width>151</width>
+     <width>241</width>
      <height>31</height>
     </rect>
    </property>
@@ -48,7 +48,7 @@ border-image: url(:/pics/bkd.png);</string>
     <rect>
      <x>80</x>
      <y>60</y>
-     <width>151</width>
+     <width>241</width>
      <height>31</height>
     </rect>
    </property>

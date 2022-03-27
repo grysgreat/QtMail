@@ -18,5 +18,10 @@
         <file>pics/loading.gif</file>
         <file>pics/front2.png</file>
         <file>pics/help.html</file>
+        <file>pics/date.jpg</file>
+        <file>pics/from.jpg</file>
+        <file>pics/subject.jpg</file>
+        <file>pics/delete.png</file>
+        <file>pics/help.png</file>
     </qresource>
 </RCC>
