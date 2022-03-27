@@ -24,8 +24,10 @@ public:
 	string date;
 	string subject;
 	MIMEContent* content;
+    bool star;
 
 	Email(){
+        this->star = false;
 	    content = NULL;
 	}
     Email(json e);

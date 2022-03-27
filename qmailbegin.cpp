@@ -15,7 +15,7 @@ QMailbegin::QMailbegin(QWidget *parent) :
 
     ui->setupUi(this);
 
-
+    ui->listWidget->setGridSize(QSize(335, 50));
     ui->label->setVisible(false);
     QMovie * move = new QMovie(":/loading.gif");
         ui->label->setMovie(move);
@@ -144,10 +144,31 @@ void QMailbegin::refreshuser(){
         ui->comboBox->addItem(QString::fromStdString(user.email));
     }
 }
-
+// 该函数执行前需要确保完全的刷新成功
+// 目前还是仅支持单次仅删除一个吧
 void QMailbegin::on_pushButton_5_clicked()
 {
-    refreshuser();
+    cout<<"deleting..."<<endl;
+  //删除选中checkbox
+    for(int i = 0; i < ui->listWidget->count(); i++)
+        {
+
+            QListWidgetItem *item = ui->listWidget->item(i);
+            //将QWidget 转化为QCheckBox  获取第i个item 的控件
+            emailWgt *emailWgt = static_cast<class emailWgt *>(ui->listWidget->itemWidget(item));
+            if(emailWgt->isCheck())
+            {
+                //TODO: 删除选中的邮件
+                //ui->listWidget->takeItem(i);
+                // 不能这么直接删  做了一次删除后会立刻生效 则顺序乱了了
+                this->CurrentUser.DeleteEmail(this->CurrentUser.allUIDLs.size()-i);
+                break;
+
+            }
+        }
+refreshEmail();
+    return ;
+
 }
 
 void QMailbegin::rsetText(QListWidgetItem *item){
@@ -268,14 +289,22 @@ void QMailbegin::refreshEmail(){
                  ==this->CurrentUser.uidlEmial.end() ){ // 从没在map中存在过
                     this->CurrentUser.AddEmailById(i);
             }
+
+
+
             Email e = this->CurrentUser.uidlEmial[UIDL];
+             QListWidgetItem * newItem =new QListWidgetItem();
+             newItem->setSizeHint(QSize(210,220));
+             this->ui->listWidget->addItem(newItem);
+             emailWgt * emailwgt  = new emailWgt(this->CurrentUser.allUIDLs.size()-i,e);
+            ui->listWidget->setItemWidget(newItem,emailwgt);
 
-            string s = to_string (i) +"||" + "    from:" + e.from + "    date:" + e.date+ "    sub: " + e.subject  ;
-
-            ui->listWidget->addItem(QString::fromUtf8(&s[0]));
+           connect(emailwgt,SIGNAL(chagestar(int )),this,SLOT(emailstarchange(int)));
 
             QApplication::processEvents();
-            }
+
+
+        }
 
 
 }
@@ -284,13 +313,22 @@ void QMailbegin::refreshEmail(){
 
 
 
+void QMailbegin::emailstarchange(int id){
 
+this->CurrentUser.uidlEmial[ this->CurrentUser.allUIDLs[   this->CurrentUser.allUIDLs.size()-id-1]].star  =
+  !this->CurrentUser.uidlEmial[ this->CurrentUser.allUIDLs[   this->CurrentUser.allUIDLs.size()-id-1]].star ;
 
-
-
+return ;
+}
 
 
 void QMailbegin::on_QMailbegin_destroyed()
 {
     Emailstojson();
+}
+
+void QMailbegin::on_pushButton_6_clicked()
+{
+    HELP help;
+    help.exec();
 }

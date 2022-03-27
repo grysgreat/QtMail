@@ -1,4 +1,4 @@
-#include "POP3Connector.h"
+﻿#include "POP3Connector.h"
 #include "util.h"
 
 
@@ -103,10 +103,19 @@ void POP3Connector::Retr(int id,string UIDL) {
 	}
 POP3Connector::~POP3Connector() {
 
-  // if(Send("quit \r\n")) {
-       //cout<<"quit success!"<<endl;
-  // }
+//  if(Send("quit \r\n")) {
+//       //cout<<"quit success!"<<endl;
+//  }else {
+//      cout<<("pop quit fails");
+//    }
 
+}
+void POP3Connector::Quit(){
+      if(Send("quit \r\n")) {
+           //cout<<"quit success!"<<endl;
+      }else {
+          cout<<("pop quit fails");
+        }
 }
 
 

@@ -168,6 +168,7 @@ void User::DeleteEmail(int id) {
     try {
         POP3Connector pop3(this->email, this->password);
         pop3.Delt(id);
+        pop3.Quit();
     }catch (Exception e){
        // cout<<"Delete fails"<<endl;
     }

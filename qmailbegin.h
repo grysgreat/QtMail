@@ -25,7 +25,8 @@
 #include"json.hpp"
 
 #include <fstream>
-
+#include "emialWgt.h"
+#include "help.h"
 
 namespace Ui {
 class QMailbegin;
@@ -44,8 +45,6 @@ public:
     User CurrentUser;
     void rsetText(QListWidgetItem *item);
     infrom BindNewuser;
-
-
 
 private slots:
     void on_pushButton_2_clicked();
@@ -67,6 +66,9 @@ private slots:
   void Emailstojson();
    void refreshEmail();
    void on_QMailbegin_destroyed();
+   void emailstarchange(int);
+
+   void on_pushButton_6_clicked();
 
 private:
     Ui::QMailbegin *ui;

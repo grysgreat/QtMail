@@ -1,4 +1,4 @@
-#ifndef _TCPCONNECTOR_
+﻿#ifndef _TCPCONNECTOR_
 #define _TCPCONNECTOR_
 
 
@@ -6,7 +6,7 @@
 #include<string>
 #include "Exception.h"
 
-#pragma comment(lib,"ws2_32.lib")
+//#pragma comment(lib,"ws2_32.lib")
 using namespace std;
 class TCPConnector {
 	SOCKET sock;
