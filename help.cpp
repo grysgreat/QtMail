@@ -8,7 +8,7 @@ HELP::HELP(QWidget *parent) :
     ui(new Ui::HELP)
 {
     ui->setupUi(this);
-    QFile file("help.html");
+    QFile file(":/pics/help.html");
 
         if(!file.open(QFile::ReadOnly | QFile::Text))
 
